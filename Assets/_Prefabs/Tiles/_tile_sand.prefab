@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8976467509582889820}
   - component: {fileID: 366155449780572725}
+  - component: {fileID: 4615308300514301908}
   m_Layer: 0
   m_Name: _tile_sand
   m_TagString: Untagged
@@ -46,6 +47,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af0843210e6a34cb0fee191445515b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainCamera: {fileID: 6610060825109869710, guid: 2085719b09333db408d536696a91ff67, type: 3}
+--- !u!65 &4615308300514301908
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110782373300004234}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 0.6426807, z: 4}
+  m_Center: {x: 0, y: -0.20892331, z: 0}
 --- !u!1 &2314017212799486103
 GameObject:
   m_ObjectHideFlags: 0

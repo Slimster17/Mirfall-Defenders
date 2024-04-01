@@ -35,6 +35,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleLabels"",
+                    ""type"": ""Button"",
+                    ""id"": ""8339c3d9-70b1-492b-a07f-e7aecd12acfe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4409957-b597-4a78-af90-d0fc602e544e"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleLabels"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -228,6 +248,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Tiles Interaction
         m_TilesInteraction = asset.FindActionMap("Tiles Interaction", throwIfNotFound: true);
         m_TilesInteraction_Click = m_TilesInteraction.FindAction("Click", throwIfNotFound: true);
+        m_TilesInteraction_ToggleLabels = m_TilesInteraction.FindAction("ToggleLabels", throwIfNotFound: true);
         // Camera Movement
         m_CameraMovement = asset.FindActionMap("Camera Movement", throwIfNotFound: true);
         m_CameraMovement_Move = m_CameraMovement.FindAction("Move", throwIfNotFound: true);
@@ -293,11 +314,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_TilesInteraction;
     private List<ITilesInteractionActions> m_TilesInteractionActionsCallbackInterfaces = new List<ITilesInteractionActions>();
     private readonly InputAction m_TilesInteraction_Click;
+    private readonly InputAction m_TilesInteraction_ToggleLabels;
     public struct TilesInteractionActions
     {
         private @PlayerInputActions m_Wrapper;
         public TilesInteractionActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Click => m_Wrapper.m_TilesInteraction_Click;
+        public InputAction @ToggleLabels => m_Wrapper.m_TilesInteraction_ToggleLabels;
         public InputActionMap Get() { return m_Wrapper.m_TilesInteraction; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -310,6 +333,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Click.started += instance.OnClick;
             @Click.performed += instance.OnClick;
             @Click.canceled += instance.OnClick;
+            @ToggleLabels.started += instance.OnToggleLabels;
+            @ToggleLabels.performed += instance.OnToggleLabels;
+            @ToggleLabels.canceled += instance.OnToggleLabels;
         }
 
         private void UnregisterCallbacks(ITilesInteractionActions instance)
@@ -317,6 +343,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Click.started -= instance.OnClick;
             @Click.performed -= instance.OnClick;
             @Click.canceled -= instance.OnClick;
+            @ToggleLabels.started -= instance.OnToggleLabels;
+            @ToggleLabels.performed -= instance.OnToggleLabels;
+            @ToggleLabels.canceled -= instance.OnToggleLabels;
         }
 
         public void RemoveCallbacks(ITilesInteractionActions instance)
@@ -383,6 +412,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface ITilesInteractionActions
     {
         void OnClick(InputAction.CallbackContext context);
+        void OnToggleLabels(InputAction.CallbackContext context);
     }
     public interface ICameraMovementActions
     {

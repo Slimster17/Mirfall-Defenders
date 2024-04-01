@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4af0843210e6a34cb0fee191445515b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 6610060825109869710, guid: 2085719b09333db408d536696a91ff67, type: 3}
+  _placeableObject: {fileID: 3527120152675368429, guid: eac04fefd6b6c7842ad5667c93659da3, type: 3}
+  _isPlaceable: 1
 --- !u!65 &4615308300514301908
 BoxCollider:
   m_ObjectHideFlags: 0

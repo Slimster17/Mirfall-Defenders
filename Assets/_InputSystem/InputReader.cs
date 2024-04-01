@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReader : MonoBehaviour, PlayerInputActions.ICameraMovementActions, PlayerInputActions.ITilesInteractionActions
+public class InputReader : MonoBehaviour, 
+    PlayerInputActions.ICameraMovementActions, 
+    PlayerInputActions.ITilesInteractionActions
 {
     // public static InputReader Instance { get; private set; }
 
     public event Action<Vector3> moveEvent;
     public event Action<Vector3, GameObject> clickEvent;
+    public event Action toggleEvent;
 
     private PlayerInputActions input;
 
@@ -56,5 +59,10 @@ public class InputReader : MonoBehaviour, PlayerInputActions.ICameraMovementActi
                 clickEvent?.Invoke(Vector3.zero, hit.collider.gameObject); // Передаємо об'єкт, на якому відбувся клік
             }
         }
+    }
+
+    public void OnToggleLabels(InputAction.CallbackContext context)
+    {
+        toggleEvent.Invoke();
     }
 }

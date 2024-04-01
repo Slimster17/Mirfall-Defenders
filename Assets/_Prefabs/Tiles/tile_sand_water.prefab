@@ -10,7 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 110782373300004234, guid: 86f516700d29f67499a7f4808ee9964a, type: 3}
       propertyPath: m_Name
-      value: tile_sand Variant
+      value: tile_sand_water
+      objectReference: {fileID: 0}
+    - target: {fileID: 366155449780572725, guid: 86f516700d29f67499a7f4808ee9964a, type: 3}
+      propertyPath: _isPlacable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 366155449780572725, guid: 86f516700d29f67499a7f4808ee9964a, type: 3}
+      propertyPath: _isPlaceable
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 650712189333138002, guid: 86f516700d29f67499a7f4808ee9964a, type: 3}
       propertyPath: m_Mesh

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Waypoint : MonoBehaviour
 {
-    [SerializeField] private GameObject _placeableObject;
+    [SerializeField] private Tower _placeableObject;
     [SerializeField] private bool _isPlaceable = true;
     private InputReader _inputReader;
 
@@ -32,9 +32,9 @@ public class Waypoint : MonoBehaviour
     {
         if (clickedObject == gameObject && IsPlaceable)
         {
-            // Debug.Log("Clicked on: " + gameObject.name);
-            GameObject.Instantiate(_placeableObject, transform.position, Quaternion.identity);
-            _isPlaceable = false;
+            bool isPlaced = _placeableObject.CreateTower(_placeableObject,transform.position);
+            
+            _isPlaceable = !isPlaced;
         }
     }
 

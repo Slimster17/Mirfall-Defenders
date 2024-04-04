@@ -2,40 +2,69 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private List<Waypoint> _waypoints = new List<Waypoint>();
+    [SerializeField] private List<Waypoint> _path = new List<Waypoint>();
     [SerializeField] [Range(0f,5f)] private float _movementSpeed = 1f;
     [SerializeField] [Range(0f,5f)] private float _rotationSpeed = 1f;
 
     private Animator animator;
+    private Enemy _enemy;
+    
+    
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        _enemy = GetComponent<Enemy>();
     }
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void OnEnable()
     {
+        FindPath();
+        ReturnToStart();
         StartCoroutine(FollowWaypoints());
     }
 
-    // Update is called once per frame
-    
-    void Update()
+    private void FindPath()
     {
+        _path.Clear();
         
+        GameObject parent = GameObject.FindGameObjectWithTag("Path");
+
+        foreach (Transform child in parent.transform)
+        {
+            Waypoint waypoint = child.GetComponent<Waypoint>();
+
+            if (waypoint != null)
+            {
+                _path.Add(waypoint);  
+            }
+                    
+        }
     }
-    
+
+    private void ReturnToStart()
+    {
+        transform.position = _path[0].transform.position;
+    }
+
+    void FinishPath()
+    {
+        _enemy.StealGold();
+        gameObject.SetActive(false);
+    }
+   
     IEnumerator FollowWaypoints()
     {
-        if (_waypoints != null)
+        if (_path != null)
         {
-            for (int i = 0; i < _waypoints.Count - 1; i++)
+            for (int i = 0; i < _path.Count - 1; i++)
             {
-                Waypoint currentWaypoint = _waypoints[i];
-                Waypoint nextWaypoint = _waypoints[i + 1];
+                Waypoint currentWaypoint = _path[i];
+                Waypoint nextWaypoint = _path[i + 1];
 
                 if (Vector3.Distance(currentWaypoint.transform.position, nextWaypoint.transform.position) < 0.01f)
                     continue; // Skip waypoints that are too close
@@ -69,5 +98,7 @@ public class EnemyMover : MonoBehaviour
         animator.SetInteger("Attacking", 1);
         animator.SetInteger("Walking", 0);
         
+      FinishPath();
+      
     }
 }

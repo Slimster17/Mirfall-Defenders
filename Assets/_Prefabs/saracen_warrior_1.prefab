@@ -68,6 +68,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bb8846a3e1baa5740b01e43bab480692, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7747429882663396842}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bb8846a3e1baa5740b01e43bab480692, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7241751368092033100}
     - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: bb8846a3e1baa5740b01e43bab480692, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6793629724636781824}
@@ -89,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fffda4474e93d4bb30067b995ce1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints: []
-  _movementSpeed: 1
+  _path: []
+  _movementSpeed: 0.31
   _rotationSpeed: 2.5
 --- !u!65 &6969762001857282183
 BoxCollider:
@@ -125,6 +128,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e84c2462568d8478dbac51b7c0ae4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHitPoint: 2
+  _difficultyRamp: 2
+--- !u!114 &7241751368092033100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041786204391306463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faacfd1f7746c1642923413696212d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldReward: 25
+  goldPenalty: 25
 --- !u!4 &2579987691409212838 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2412161367050800168, guid: bb8846a3e1baa5740b01e43bab480692, type: 3}

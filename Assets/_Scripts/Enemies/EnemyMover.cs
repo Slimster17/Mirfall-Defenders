@@ -7,48 +7,54 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private List<Waypoint> _path = new List<Waypoint>();
+     
     [SerializeField] [Range(0f,5f)] private float _movementSpeed = 1f;
     [SerializeField] [Range(0f,5f)] private float _rotationSpeed = 1f;
-
+    
+    private List<Node> _path = new List<Node>();
+    
     private Animator animator;
     private Enemy _enemy;
+    private GridManager _gridManager;
+    private PathFinder _pathFinder;
     
     
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        _gridManager = FindObjectOfType<GridManager>();
+        _pathFinder = FindObjectOfType<PathFinder>();
         _enemy = GetComponent<Enemy>();
     }
     
     private void OnEnable()
     {
-        FindPath();
         ReturnToStart();
-        StartCoroutine(FollowWaypoints());
+        RecalculatePath(true);
     }
 
-    private void FindPath()
+    private void RecalculatePath(bool resetPath)
     {
-        _path.Clear();
-        
-        GameObject parent = GameObject.FindGameObjectWithTag("Path");
+        Vector2Int coordinates = new Vector2Int();
 
-        foreach (Transform child in parent.transform)
+        if (resetPath)
         {
-            Waypoint waypoint = child.GetComponent<Waypoint>();
-
-            if (waypoint != null)
-            {
-                _path.Add(waypoint);  
-            }
-                    
+            coordinates = _pathFinder.StartCoordinates;
         }
+        else
+        {
+            coordinates = _gridManager.GetCoordinatesFromPosition(transform.position);
+        }
+        
+        StopAllCoroutines();
+        _path.Clear();
+        _path = _pathFinder.GetNewPath(coordinates);
+        StartCoroutine(FollowPath());
     }
 
     private void ReturnToStart()
     {
-        transform.position = _path[0].transform.position;
+        transform.position = _gridManager.GetPositionFromCoordinates(_pathFinder.StartCoordinates);
     }
 
     void FinishPath()
@@ -57,20 +63,21 @@ public class EnemyMover : MonoBehaviour
         gameObject.SetActive(false);
     }
    
-    IEnumerator FollowWaypoints()
+    IEnumerator FollowPath()
     {
         if (_path != null)
         {
-            for (int i = 0; i < _path.Count - 1; i++)
+            for (int i = 1; i < _path.Count - 1; i++)
             {
-                Waypoint currentWaypoint = _path[i];
-                Waypoint nextWaypoint = _path[i + 1];
+                Node currentTile = _path[i];
+                Node nextTile = _path[i + 1];
 
-                if (Vector3.Distance(currentWaypoint.transform.position, nextWaypoint.transform.position) < 0.01f)
+                if (Vector3.Distance(_gridManager.GetPositionFromCoordinates(currentTile.coordinates),
+                        _gridManager.GetPositionFromCoordinates(nextTile.coordinates)) < 0.01f)
                     continue; // Skip waypoints that are too close
 
                 Vector3 startPosition = transform.position;
-                Vector3 endPosition = nextWaypoint.transform.position;
+                Vector3 endPosition = _gridManager.GetPositionFromCoordinates(nextTile.coordinates);
 
                 Quaternion startRotation = transform.rotation;
                 Quaternion endRotation = Quaternion.LookRotation(endPosition - startPosition);

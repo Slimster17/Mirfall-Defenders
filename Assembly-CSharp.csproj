@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\testRot.cs" />
+    <Compile Include="Assets\_Scripts\Tiles\Tile.cs" />
     <Compile Include="Assets\_Scripts\Enemies\EnemyHealth.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
@@ -53,9 +54,11 @@
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
     <Compile Include="Assets\_Scripts\Enemies\EnemyMover.cs" />
     <Compile Include="Assets\_Scripts\Bank\Bank.cs" />
-    <Compile Include="Assets\_Scripts\Tiles\Waypoint.cs" />
     <Compile Include="Assets\_Scripts\Enemies\Enemy.cs" />
+    <Compile Include="Assets\_Scripts\PathFinder\GridManager.cs" />
+    <Compile Include="Assets\_Scripts\PathFinder\PathFinder.cs" />
     <Compile Include="Assets\_InputSystem\InputReader.cs" />
+    <Compile Include="Assets\_Scripts\PathFinder\Node.cs" />
     <Compile Include="Assets\_Scripts\Towers\TargetLocator.cs" />
     <Compile Include="Assets\_Scripts\Tiles\CoordinateLabeler.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

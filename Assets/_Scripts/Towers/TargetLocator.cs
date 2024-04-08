@@ -18,8 +18,8 @@ public class TargetLocator : MonoBehaviour
     
     [SerializeField] private float minAngleX = 10f;
     [SerializeField] private float maxAngleX = 12f;
-    [SerializeField] private float maxAngleXWeaponArm = 150f;
-    [SerializeField] private float minAngleXWeaponArm = 80f;
+    // [SerializeField] private float maxAngleXWeaponArm = 150f;
+    // [SerializeField] private float minAngleXWeaponArm = 80f;
     [SerializeField] private float targetingSpeed = 100f;
     
     private Animator _animator;

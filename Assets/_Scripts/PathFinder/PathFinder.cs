@@ -35,7 +35,7 @@ public class PathFinder : MonoBehaviour
         if (_gridManager != null)
         {
             _grid = _gridManager.Grid;
-            Debug.Log(_startCoordinates);
+            // Debug.Log(_startCoordinates);
             _startNode = _grid[_startCoordinates];
             _destinationNode = _grid[_destinationCoordinates];
             

@@ -254,8 +254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80eeda339d40734ba4d071666a80ed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  _blockedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _defaultColor: {r: 0, g: 0.06818819, b: 1, a: 1}
+  _blockedColor: {r: 0, g: 0, b: 0, a: 1}
+  _exploredColor: {r: 1, g: 0, b: 1, a: 1}
+  _pathColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &4117039521957511708
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ using UnityEditor;
 [ExecuteAlways]
 public class CoordinateLabeler : MonoBehaviour
 {
-    [SerializeField] private Color _defaultColor = Color.white;
-    [SerializeField] private Color _blockedColor = Color.gray;
+    [SerializeField] private Color _defaultColor = Color.blue;
+    [SerializeField] private Color _blockedColor = Color.black;
     [SerializeField] private Color _exploredColor = Color.magenta;
     [SerializeField] private Color _pathColor = Color.red;
     
@@ -18,7 +18,7 @@ public class CoordinateLabeler : MonoBehaviour
 
     private Vector2Int _coordinates = new Vector2Int();
     private GridManager _gridManager;
-
+    private Tile _tile;
     
     private InputReader _inputReader;
 
@@ -28,7 +28,7 @@ public class CoordinateLabeler : MonoBehaviour
         _label = GetComponent<TextMeshPro>();
         _gridManager = FindObjectOfType<GridManager>();
         DisplayCoordinates();
-        
+        _tile = GetComponentInParent<Tile>();
         _label.enabled = false;
     }
     private void OnEnable()
@@ -64,7 +64,16 @@ public class CoordinateLabeler : MonoBehaviour
         {
             return;
         }
-
+        
+       
+        if (_tile.IsPlaceable)
+        {
+            _label.color = Color.black;
+        }
+        else
+        {
+            _label.color = Color.gray;
+        }
         Node node = _gridManager.GetNode(_coordinates);
 
         if (node == null)
@@ -88,6 +97,7 @@ public class CoordinateLabeler : MonoBehaviour
         {
             _label.color = _defaultColor;
         }
+       
        
     }
 

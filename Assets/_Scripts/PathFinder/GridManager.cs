@@ -75,7 +75,7 @@ public class GridManager : MonoBehaviour
             for (int y = 0; y < _gridSize.y; y++)
             {
                 Vector2Int coordinates = new Vector2Int(x, y);
-                Debug.Log("Adding node at coordinates: " + coordinates);
+                // Debug.Log("Adding node at coordinates: " + coordinates);
                 _grid.Add(coordinates, new Node(coordinates, true));
             }
         }

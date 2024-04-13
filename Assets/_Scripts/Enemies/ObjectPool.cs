@@ -8,6 +8,8 @@ public class ObjectPool : MonoBehaviour
     [SerializeField][Range(0,10)] private int _poolSize = 5;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField][Range(0.1f, 20f)] private float _spawnTimer = 1f;
+    [SerializeField] private Canvas _healthBarCanvas;
+    [SerializeField] private Camera _camera;
 
     private GameObject[] _pool;
 
@@ -30,7 +32,14 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _pool.Length; i++)
         {
             _pool[i] = Instantiate(_enemyPrefab, transform);
+            _pool[i].GetComponent<EnemyHealth>().SetupHealthBar(_healthBarCanvas, _camera);
+
+            // Set enemy game object inactive
             _pool[i].SetActive(false);
+
+            // Set health bar game object inactive
+            _pool[i].GetComponent<EnemyHealth>().gameObject.SetActive(false);
+            
         }
     }
     IEnumerator SpawnEnemy()
@@ -49,6 +58,7 @@ public class ObjectPool : MonoBehaviour
             if (_pool[i].activeInHierarchy == false)
             {
                 _pool[i].SetActive(true);
+                // _pool[i].GetComponent<EnemyHealth>().gameObject.SetActive(true);
                 return;
             }
         }

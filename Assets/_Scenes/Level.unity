@@ -47399,11 +47399,11 @@ PrefabInstance:
       objectReference: {fileID: 2082286618}
     - target: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
       propertyPath: _poolSize
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
       propertyPath: _spawnTimer
-      value: 4
+      value: 3.6
       objectReference: {fileID: 0}
     - target: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
       propertyPath: _healthBarCanvas

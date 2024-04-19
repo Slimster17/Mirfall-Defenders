@@ -23,7 +23,7 @@ public class EnemyMover : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         _gridManager = FindObjectOfType<GridManager>();
-        _pathFinder = FindObjectOfType<PathFinder>();
+        _pathFinder = GetComponentInParent<PathFinder>();
         _enemy = GetComponent<Enemy>();
     }
     

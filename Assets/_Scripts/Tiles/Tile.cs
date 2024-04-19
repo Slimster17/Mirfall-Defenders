@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Tower _placeableObject;
     [SerializeField] private bool _isPlaceable = true;
     private InputReader _inputReader;
-    private GridManager _gridManager;
+    private GridManager[] _gridManagers;
     private PathFinder _pathFinder;
     private Vector2Int _coordinates;
 
@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     }
     private void Awake()
     {
-        _gridManager = FindObjectOfType<GridManager>();
+        _gridManagers = FindObjectsOfType<GridManager>();
         _pathFinder = FindObjectOfType<PathFinder>();
         _inputReader = FindObjectOfType<InputReader>();
     }
@@ -36,29 +36,56 @@ public class Tile : MonoBehaviour
     
     private void Start()
     {
-        if (_gridManager != null)
+        foreach (var gridManager in _gridManagers)
         {
-            _coordinates = _gridManager.GetCoordinatesFromPosition(transform.position);
-            if (!IsPlaceable)
+            if (gridManager != null)
             {
-                _gridManager.BlockNode(_coordinates);
+                _coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
+                if (!IsPlaceable)
+                {
+                    gridManager.BlockNode(_coordinates);
+                }
             }
         }
+        
     }
 
 
     private void OnClickInput(Vector3 direction, GameObject clickedObject)
     {
-        if (clickedObject == gameObject && 
-            _gridManager.GetNode(_coordinates).isWalkable && 
-            !_pathFinder.WillBlockPath(_coordinates))
+        if (clickedObject == gameObject)
         {
-            bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
-            if (isSuccessful)
+            if (CheckAllGridsWalkable())
             {
-                _gridManager.BlockNode(_coordinates);
-                _pathFinder.NotifyReceivers();
+                bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
+                if (isSuccessful)
+                {
+                    BlockAllNodes(_coordinates);
+                    _pathFinder.NotifyReceivers();
+                
+                }
             }
+           
+        }
+    }
+
+    public bool CheckAllGridsWalkable()
+    {
+        foreach (var gridManager in _gridManagers)
+        {
+            if (!gridManager.GetNode(_coordinates).isWalkable && _pathFinder.WillBlockPath(_coordinates))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void BlockAllNodes(Vector2Int coordinates)
+    {
+        foreach (var gridManager in _gridManagers)
+        {
+            gridManager.BlockNode(coordinates);
         }
     }
 

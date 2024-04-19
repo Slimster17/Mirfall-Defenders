@@ -125,4 +125,12 @@ public class CoordinateLabeler : MonoBehaviour
     {
         transform.parent.name = _label.text;
     }
+
+
+    public void PaintGrid1(GridManager gridManager)
+    {
+        Debug.Log("COLORING LABELS");
+        _gridManager = gridManager;
+        SetLabelColor();
+    }
 }

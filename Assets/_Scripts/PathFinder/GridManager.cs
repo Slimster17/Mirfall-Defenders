@@ -9,6 +9,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int _unityGridSize = 4;
     private Dictionary<Vector2Int, Node> _grid = new Dictionary<Vector2Int, Node>();
     
+    private Dictionary<int, List<Vector2Int>> _paths = new Dictionary<int, List<Vector2Int>>();
+
     public int UnityGridSize
     {
         get { return _unityGridSize; }
@@ -50,6 +52,13 @@ public class GridManager : MonoBehaviour
             entry.Value.isPath = false;
         }
     }
+    public void ResetNodes(int objectId)
+    {
+        if (_paths.ContainsKey(objectId))
+        {
+            _paths.Remove(objectId);
+        }
+    }
     public Vector2Int GetCoordinatesFromPosition(Vector3 position)
     {
         Vector2Int coordinates = new Vector2Int();
@@ -80,4 +89,23 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+    
+    public void AddPath(int objectId, List<Vector2Int> path)
+    {
+        _paths[objectId] = path;
+    }
+
+    public List<Vector2Int> GetPath(int objectId)
+    {
+        return _paths.ContainsKey(objectId) ? _paths[objectId] : null;
+    }
+
+    public void RemovePath(int objectId)
+    {
+        if (_paths.ContainsKey(objectId))
+        {
+            _paths.Remove(objectId);
+        }
+    }
+    
 }

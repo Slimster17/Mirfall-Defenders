@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,15 +20,27 @@ public class PathFinder : MonoBehaviour
 
     private GridManager _gridManager;
     private Dictionary<Vector2Int, Node> _grid = new Dictionary<Vector2Int, Node>();
+    
+    private int _objectId;
 
     public Vector2Int StartCoordinates
     {
         get { return _startCoordinates; }
+        set
+        {
+            _startCoordinates = value;
+            _startNode = _grid[_startCoordinates];
+        }
     }
     
     public Vector2Int DestinationCoordinates
     {
         get { return _destinationCoordinates; }
+        set 
+        {
+            _destinationCoordinates = value;
+            _destinationNode = _grid[_destinationCoordinates]; 
+        }
     }
     private void Awake()
     {
@@ -42,11 +55,33 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    // public PathFinder(GridManager gridManager)
+    // {
+    //     if (gridManager != null)
+    //     {
+    //         _gridManager = gridManager;
+    //         _grid = _gridManager.Grid;
+    //         _startNode = _grid[_startCoordinates];
+    //         _destinationNode = _grid[_destinationCoordinates];
+    //     }
+    //     
+    // }
+
+   
     void Start()
     {
         GetNewPath();
     }
+
+    // public List<Node> FindPath(GridManager gridManager, Vector2Int startCoordinates, Vector2Int destinationCoordinates)
+    // {
+    //     _gridManager = gridManager;
+    //     _grid = _gridManager.Grid;
+    //     StartCoordinates = startCoordinates;
+    //     DestinationCoordinates = destinationCoordinates;
+    //     
+    //     return GetNewPath();
+    // }
 
     public List<Node> GetNewPath()
     {
@@ -154,4 +189,16 @@ public class PathFinder : MonoBehaviour
     {
         BroadcastMessage("RecalculatePath",false,SendMessageOptions.DontRequireReceiver);
     }
+    
+    public void ResetPath()
+    {
+        foreach (var node in _grid.Values)
+        {
+            if (node.isPath)
+            {
+                node.isPath = false;
+            }
+        }
+    }
+    
 }

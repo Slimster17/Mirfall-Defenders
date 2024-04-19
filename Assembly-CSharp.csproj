@@ -47,14 +47,18 @@
   <ItemGroup>
     <Compile Include="Assets\testRot.cs" />
     <Compile Include="Assets\_Scripts\Tiles\Tile.cs" />
+    <Compile Include="Assets\_Scripts\Crusader.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\FollowTarget.cs" />
     <Compile Include="Assets\_Scripts\Enemies\EnemyHealth.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\_Scripts\Enemies\ObjectPool.cs" />
+    <Compile Include="Assets\_Scripts\CrusaderPathFinder.cs" />
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
     <Compile Include="Assets\_Scripts\Enemies\EnemyMover.cs" />
+    <Compile Include="Assets\_Scripts\UnitySelector.cs" />
     <Compile Include="Assets\_Scripts\Bank\Bank.cs" />
+    <Compile Include="Assets\TestingPathChecker.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\ProgressBar.cs" />
     <Compile Include="Assets\_Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\GridManager.cs" />

@@ -311,9 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldReward: 25
   goldPenalty: 25
-  _unitMask:
-    serializedVersion: 2
-    m_Bits: 128
+  _unitMask: 7
 --- !u!114 &7876633172065624130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +346,6 @@ MonoBehaviour:
   _healthBar: {fileID: 6490792188136122865}
   _healthBarCanvas: {fileID: 0}
   _hasDifficultyRamp: 0
-  isEnemy: 0
 --- !u!114 &1720691286514236493
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,6 +43,14 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void SetNodeLayerMask(Vector2Int coordinates,ProjectLayers layer)
+    {
+        if (_grid.ContainsKey(coordinates))
+        {
+            _grid[coordinates].requiredLayer = layer;
+        }
+    }
+
     public void ResetNodes()
     {
         foreach (var entry in _grid)

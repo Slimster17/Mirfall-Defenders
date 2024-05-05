@@ -61,6 +61,7 @@ public class EnemyMover : MonoBehaviour
     
     private void OnEnable()
     {
+        _pathFinder.Unit = _unit;
         ReturnToStart();
         RecalculatePath(true);
         _lastPosition = transform.position;

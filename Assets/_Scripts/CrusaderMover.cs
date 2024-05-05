@@ -17,6 +17,7 @@ public class CrusaderMover : MonoBehaviour
     private UnitHealth _unitHealth;
     private Animator _animator;
     private UnitAttack _unitAttack;
+    private Unit _unit;
     
     [SerializeField] private bool _isFollowingPath = true;
     private bool _isAttacking;
@@ -55,18 +56,19 @@ public class CrusaderMover : MonoBehaviour
         _unitHealth = GetComponent<UnitHealth>();
         _animator = GetComponentInChildren<Animator>();
         _unitAttack = GetComponent<UnitAttack>();
+        _unit = GetComponent<Unit>();
         // FindNearestEnemyMover();
 
     }
     
     private void OnEnable()
     {
-        
+        _pathFinder.Unit = _unit;
         _unitHealth.SetupHealthBar();
         FindNearestEnemyMover();
         if (_targetEnemy != null)
         {
-            RecalculatePath(false);
+            // RecalculatePath(false);
            _targetEnemy.onPossitionChanged.AddListener(RecalculatePath);
         }
     }

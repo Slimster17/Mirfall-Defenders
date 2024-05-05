@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _placeableObject: {fileID: -7757307643916873872, guid: eac04fefd6b6c7842ad5667c93659da3, type: 3}
   _isPlaceable: 1
+  _tileLayerMask: 0
 --- !u!65 &4615308300514301908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,8 +180,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

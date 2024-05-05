@@ -7,17 +7,18 @@ public class Unit : MonoBehaviour
 {
     [SerializeField] private int goldReward = 25;
     [SerializeField] private int goldPenalty = 25;
-    [SerializeField] private LayerMask _unitMask;
+    [SerializeField] private ProjectLayers _unitMask;
 
     private Bank _bank;
     
-    public LayerMask UnitMask
+    public ProjectLayers UnitMask
     {
         get { return _unitMask; }
     }
 
     private void Awake()
     {
+        _unitMask = (ProjectLayers)LayersManager.GetLayerIndex(gameObject);
         _bank = FindObjectOfType<Bank>();
     }
 

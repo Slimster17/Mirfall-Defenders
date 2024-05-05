@@ -20,8 +20,14 @@ public class PathFinder : MonoBehaviour
 
     private GridManager _gridManager;
     private Dictionary<Vector2Int, Node> _grid = new Dictionary<Vector2Int, Node>();
+
+    private Unit _unit;
     
-    private int _objectId;
+    public Unit Unit
+    {
+        get { return _unit; }
+        set { _unit = value; }
+    }
 
     public Vector2Int StartCoordinates
     {
@@ -53,6 +59,7 @@ public class PathFinder : MonoBehaviour
             _destinationNode = _grid[_destinationCoordinates];
             
         }
+        
     }
 
     // public PathFinder(GridManager gridManager)
@@ -96,6 +103,12 @@ public class PathFinder : MonoBehaviour
         
     private void ExploreNeighbors()
     {
+        // Debug.Log($"{gameObject} ::::: {_currentSearchNode.coordinates} || {_grid} || {_unit}");
+        if (_currentSearchNode == null || _grid == null || _unit == null)
+        {
+            return;
+        }
+        
         List<Node> neighbors = new List<Node>();
 
         foreach (var direction in _directions)
@@ -110,7 +123,9 @@ public class PathFinder : MonoBehaviour
 
         foreach (var neighbor in neighbors)
         {
-            if (!_reached.ContainsKey(neighbor.coordinates) && neighbor.isWalkable)
+            if (!_reached.ContainsKey(neighbor.coordinates) && neighbor.isWalkable && 
+                (LayersManager.HasLayer(neighbor.requiredLayer, _unit.UnitMask) 
+                 || neighbor.requiredLayer == ProjectLayers.Default))
             {
                 neighbor.connectedTo = _currentSearchNode;
                 _reached.Add(neighbor.coordinates,neighbor);
@@ -137,10 +152,11 @@ public class PathFinder : MonoBehaviour
             _currentSearchNode = _frontier.Dequeue();
             _currentSearchNode.isExplored = true;
             ExploreNeighbors();
-            if (_currentSearchNode.coordinates == _destinationCoordinates)
-            {
-                isRunning = false;
-            }
+            // Додайте перевірку шарів перед додаванням клітинки до шляху
+                if (_currentSearchNode.coordinates == _destinationCoordinates)
+                {
+                    isRunning = false;
+                }
         }
     }
 

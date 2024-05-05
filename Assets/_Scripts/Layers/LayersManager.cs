@@ -14,4 +14,15 @@ public static class LayersManager
         LayerMask layerMask = GetLayerMask(layer);
         return (mask & layerMask) == layerMask;
     }
+    public static bool HasLayer(ProjectLayers maskLayer, ProjectLayers layer)
+    {
+        LayerMask mask = GetLayerMask(maskLayer);
+        LayerMask layerMask = GetLayerMask(layer);
+        return (mask & layerMask) == layerMask;
+    }
+    
+    public static int GetLayerIndex(GameObject obj)
+    {
+        return obj.layer;
+    }
 }

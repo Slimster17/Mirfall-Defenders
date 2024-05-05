@@ -8,6 +8,7 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private Tower _placeableObject;
     [SerializeField] private bool _isPlaceable = true;
+    [SerializeField] private ProjectLayers _tileLayerMask;
     private InputReader _inputReader;
     private GridManager _gridManager;
     private PathFinder[] _pathFinders;
@@ -43,6 +44,7 @@ public class Tile : MonoBehaviour
             {
                 _gridManager.BlockNode(_coordinates);
             }
+            _gridManager.SetNodeLayerMask(_coordinates,_tileLayerMask);
         }
     }
 

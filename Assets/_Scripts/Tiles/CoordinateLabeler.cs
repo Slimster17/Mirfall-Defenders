@@ -18,10 +18,15 @@ public class CoordinateLabeler : MonoBehaviour
 
     private Vector2Int _coordinates = new Vector2Int();
     private GridManager _gridManager;
+    // private PathFinder _pathFinder;
     private Tile _tile;
     
     private InputReader _inputReader;
 
+    private UnitSelector _unitSelector;
+    
+    private CrusaderMover _selectedCrusaderMover;
+    
     private void Awake()
     {
         _inputReader = FindObjectOfType<InputReader>();
@@ -30,15 +35,18 @@ public class CoordinateLabeler : MonoBehaviour
         DisplayCoordinates();
         _tile = GetComponentInParent<Tile>();
         _label.enabled = false;
+        _unitSelector = FindObjectOfType<UnitSelector>();
     }
     private void OnEnable()
     {
         _inputReader.toggleEvent += ToggleLabels;
+        _unitSelector.onUnitSelected.AddListener(OnUnitSelected);
     }
 
     private void OnDisable()
     {
         _inputReader.toggleEvent -= ToggleLabels;
+        _unitSelector.onUnitSelected.RemoveListener(OnUnitSelected);
     }
 
 
@@ -48,58 +56,115 @@ public class CoordinateLabeler : MonoBehaviour
         {
             DisplayCoordinates();
             UpdateObjectName();
-            SetLabelColor();
+            // SetLabelColor(_pathFinder);
             _label.enabled = true;
         }
 
-      
-        DisplayCoordinates();
-        SetLabelColor();
-   
+
+        if (_label.IsActive())
+        {
+            DisplayCoordinates();
+            if (_selectedCrusaderMover != null)
+            {
+                // SetColorLabels(_selectedCrusaderMover);
+            }
+        }
+        
+    }
+    
+    private void OnUnitSelected(CrusaderMover crusaderMover)
+    {
+        if (_selectedCrusaderMover != null)
+        {
+            _selectedCrusaderMover.onPathRecalculated -= SetColorLabels; // Відписка від попереднього об'єкту
+        }
+    
+        _selectedCrusaderMover = crusaderMover; 
+        if (_selectedCrusaderMover != null)
+        {
+            _selectedCrusaderMover.onPathRecalculated += SetColorLabels; // Підписка на новий об'єкт
+        }
     }
 
-    private void SetLabelColor()
+    private void SetColorLabels()
     {
+        if (!_label.IsActive())
+        {
+            return;
+        }
+        Debug.Log("Setting ColorS");
         if (_gridManager == null)
         {
+            Debug.LogError("PathFinder is null.");
             return;
         }
-        
-       
-        if (_tile.IsPlaceable)
-        {
-            _label.color = Color.black;
-        }
-        else
-        {
-            _label.color = Color.gray;
-        }
-        Node node = _gridManager.GetNode(_coordinates);
 
-        if (node == null)
+        Node currentNode;
+        bool hasMatchingNode = false;
+        foreach (var node in _selectedCrusaderMover.Path)     
         {
-            return;
+            if (node.coordinates == _coordinates)
+            {
+                hasMatchingNode = true;
+                currentNode = node;
+                break;  // Exit the loop early since we found a matching node
+            }
         }
-        
-        if (!node.isWalkable)
-        {
-            _label.color = _blockedColor;
-        }
-        else if (node.isPath)
+
+        if (hasMatchingNode)
         {
             _label.color = _pathColor;
         }
-        else if (node.isExplored)
+        else if(!_tile.IsPlaceable)
         {
-            _label.color = _exploredColor;
+            _label.color = _blockedColor;
         }
         else
         {
             _label.color = _defaultColor;
         }
-       
-       
     }
+    
+    // private void SetLabelColor()
+    // {
+    //     if (_gridManager == null)
+    //     {
+    //         return;
+    //     }
+    //     
+    //     if (_tile.IsPlaceable)
+    //     {
+    //         _label.color = Color.black;
+    //     }
+    //     else
+    //     {
+    //         _label.color = Color.gray;
+    //     }
+    //     Node node = _gridManager.GetNode(_coordinates);
+    //     
+    //     if (node == null)
+    //     {
+    //         return;
+    //     }
+    //     
+    //     if (!node.isWalkable)
+    //     {
+    //         _label.color = _blockedColor;
+    //     }
+    //     else if (node.isPath)
+    //     {
+    //         _label.color = _pathColor;
+    //     }
+    //     else if (node.isExplored)
+    //     {
+    //         _label.color = _exploredColor;
+    //     }
+    //     else
+    //     {
+    //         _label.color = _defaultColor;
+    //     }
+    //     
+    // }
 
     private void ToggleLabels()
     {
@@ -119,18 +184,9 @@ public class CoordinateLabeler : MonoBehaviour
 
         _label.text = $"{_coordinates.x}, {_coordinates.y}";
     }
-
-
+    
     private void UpdateObjectName()
     {
         transform.parent.name = _label.text;
-    }
-
-
-    public void PaintGrid1(GridManager gridManager)
-    {
-        Debug.Log("COLORING LABELS");
-        _gridManager = gridManager;
-        SetLabelColor();
     }
 }

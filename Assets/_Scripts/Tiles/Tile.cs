@@ -9,8 +9,8 @@ public class Tile : MonoBehaviour
     [SerializeField] private Tower _placeableObject;
     [SerializeField] private bool _isPlaceable = true;
     private InputReader _inputReader;
-    private GridManager[] _gridManagers;
-    private PathFinder _pathFinder;
+    private GridManager _gridManager;
+    private PathFinder[] _pathFinders;
     private Vector2Int _coordinates;
 
     public bool IsPlaceable
@@ -19,8 +19,8 @@ public class Tile : MonoBehaviour
     }
     private void Awake()
     {
-        _gridManagers = FindObjectsOfType<GridManager>();
-        _pathFinder = FindObjectOfType<PathFinder>();
+        _gridManager = FindObjectOfType<GridManager>();
+        _pathFinders = FindObjectsOfType<PathFinder>();
         _inputReader = FindObjectOfType<InputReader>();
     }
 
@@ -33,47 +33,40 @@ public class Tile : MonoBehaviour
     {
         _inputReader.clickEvent -= OnClickInput;
     }
-    
+
     private void Start()
     {
-        foreach (var gridManager in _gridManagers)
+        if (_gridManager != null)
         {
-            if (gridManager != null)
+            _coordinates = _gridManager.GetCoordinatesFromPosition(transform.position);
+            if (!IsPlaceable)
             {
-                _coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
-                if (!IsPlaceable)
-                {
-                    gridManager.BlockNode(_coordinates);
-                }
+                _gridManager.BlockNode(_coordinates);
             }
         }
-        
     }
 
 
     private void OnClickInput(Vector3 direction, GameObject clickedObject)
     {
-        if (clickedObject == gameObject)
+        if (clickedObject == gameObject && 
+            _gridManager.GetNode(_coordinates).isWalkable && 
+            CheckAllPathFindersBlocks())
         {
-            if (CheckAllGridsWalkable())
+            bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
+            if (isSuccessful)
             {
-                bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
-                if (isSuccessful)
-                {
-                    BlockAllNodes(_coordinates);
-                    _pathFinder.NotifyReceivers();
-                
-                }
+                _gridManager.BlockNode(_coordinates);
+                NotifyAllPathFinders();
             }
-           
         }
     }
 
-    public bool CheckAllGridsWalkable()
+    private bool CheckAllPathFindersBlocks()
     {
-        foreach (var gridManager in _gridManagers)
+        foreach (var pathFinder in _pathFinders)
         {
-            if (!gridManager.GetNode(_coordinates).isWalkable && _pathFinder.WillBlockPath(_coordinates))
+            if (pathFinder.WillBlockPath(_coordinates))
             {
                 return false;
             }
@@ -81,12 +74,13 @@ public class Tile : MonoBehaviour
         return true;
     }
 
-    public void BlockAllNodes(Vector2Int coordinates)
+    private void NotifyAllPathFinders()
     {
-        foreach (var gridManager in _gridManagers)
+        foreach (var pathFinder in _pathFinders)
         {
-            gridManager.BlockNode(coordinates);
+            pathFinder.NotifyReceivers();
         }
     }
+    
 
 }

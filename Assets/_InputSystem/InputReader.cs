@@ -2,18 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour, 
     PlayerInputActions.ICameraMovementActions, 
     PlayerInputActions.ITilesInteractionActions
+   
 {
     // public static InputReader Instance { get; private set; }
 
     public event Action<Vector3> moveEvent;
     public event Action<Vector3, GameObject> clickEvent;
     public event Action toggleEvent;
-
+    public event Action<Vector2> mousePositionEvent;
     private PlayerInputActions input;
 
     private void Awake()
@@ -47,6 +49,11 @@ public class InputReader : MonoBehaviour,
         moveEvent?.Invoke(context.ReadValue<Vector3>());
     }
 
+    public void OnMousePosition(InputAction.CallbackContext context)
+    {
+        mousePositionEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
     public void OnClick(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -63,6 +70,7 @@ public class InputReader : MonoBehaviour,
 
     public void OnToggleLabels(InputAction.CallbackContext context)
     {
-        toggleEvent.Invoke();
+        toggleEvent?.Invoke();
     }
+    
 }

@@ -47,25 +47,45 @@ public class TargetLocator : MonoBehaviour
     {
         AimWeapon();
     }
-
+    
     private void FindClosestTarget()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _fireRange, LayerMask.GetMask("Enemy"));
         Transform closestTarget = null;
         float maxDistance = Mathf.Infinity;
 
-        foreach (var enemy in enemies)
+        foreach (var collider in colliders)
         {
-            float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            float targetDistance = Vector3.Distance(transform.position, collider.transform.position);
             if (maxDistance > targetDistance)
             {
-                closestTarget = enemy.transform;
+                closestTarget = collider.transform;
                 maxDistance = targetDistance;
             }
         }
 
         _target = closestTarget;
     }
+
+
+    // private void FindClosestTarget()
+    // {
+    //     Unit[] enemies = FindObjectsOfType<Unit>();
+    //     Transform closestTarget = null;
+    //     float maxDistance = Mathf.Infinity;
+    //
+    //     foreach (var enemy in enemies)
+    //     {
+    //         float targetDistance = Vector3.Distance(transform.position, enemy.transform.position);
+    //         if (maxDistance > targetDistance)
+    //         {
+    //             closestTarget = enemy.transform;
+    //             maxDistance = targetDistance;
+    //         }
+    //     }
+    //
+    //     _target = closestTarget;
+    // }
 
     private void AimWeapon()
     {
@@ -83,6 +103,10 @@ public class TargetLocator : MonoBehaviour
             {
                 Attack(false);
             }
+        }
+        else
+        {
+            Attack(false);
         }
     }
 

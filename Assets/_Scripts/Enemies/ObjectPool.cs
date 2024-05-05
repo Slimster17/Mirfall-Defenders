@@ -32,13 +32,13 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _pool.Length; i++)
         {
             _pool[i] = Instantiate(_enemyPrefab, transform);
-            _pool[i].GetComponent<EnemyHealth>().SetupHealthBar(_healthBarCanvas, _camera);
+            _pool[i].GetComponent<UnitHealth>().SetupHealthBar(_healthBarCanvas, _camera);
 
             // Set enemy game object inactive
             _pool[i].SetActive(false);
 
             // Set health bar game object inactive
-            _pool[i].GetComponent<EnemyHealth>().gameObject.SetActive(false);
+            _pool[i].GetComponent<UnitHealth>().gameObject.SetActive(false);
             
         }
     }

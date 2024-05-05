@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(Unit))]
 public class EnemyMover : MonoBehaviour
 {
      
@@ -14,27 +15,128 @@ public class EnemyMover : MonoBehaviour
     private List<Node> _path = new List<Node>();
     
     private Animator animator;
-    private Enemy _enemy;
+    private Unit _unit;
     private GridManager _gridManager;
     private PathFinder _pathFinder;
     
+    public UnityEvent<bool> onPossitionChanged = new UnityEvent<bool>();
+    private Vector3 _lastPosition;
+    private UnitAttack _unitAttack;
     
+    // private Transform _enemyTransform;
+   
+    [SerializeField] private bool _isFollowingPath = true;
+    private bool _isAttacking;
+
+    public bool IsFollowingPath
+    {
+        get { return _isFollowingPath; }
+        set
+        {
+            if (value == _isFollowingPath)
+                return;
+
+            _isFollowingPath = value;
+
+            if (_isFollowingPath)
+            {
+                ResumeFollowingPath();
+            }
+            else
+            {
+               StopFollowingPath();
+            }
+        }
+    }
+
+ 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         _gridManager = FindObjectOfType<GridManager>();
         _pathFinder = GetComponentInParent<PathFinder>();
-        _enemy = GetComponent<Enemy>();
+        _unit = GetComponent<Unit>();
+        _unitAttack = GetComponent<UnitAttack>();
     }
     
     private void OnEnable()
     {
         ReturnToStart();
         RecalculatePath(true);
+        _lastPosition = transform.position;
+    }
+
+    private void OnValidate()
+    {
+        if (IsFollowingPath)
+        {
+           ResumeFollowingPath();
+        }
+        else
+        {
+            StopFollowingPath();
+        }
+    }
+
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position, _lastPosition) > 3f)
+        {
+            _lastPosition = transform.position;
+            onPossitionChanged.Invoke(false);
+        }
+
+        if (_unitAttack.CheckEnemiesNearby() && !_isAttacking)
+        {
+            IsFollowingPath = false;
+            _isAttacking = true;
+            _unitAttack.ManageAttackRoutine(true);
+        }
+        else if (!_unitAttack.CheckEnemiesNearby() && _isAttacking)
+        {
+            IsFollowingPath = true;
+            _isAttacking = false;
+           _unitAttack.ManageAttackRoutine(false);
+        }
+        
+        // Collider[] colliders = Physics.OverlapSphere(transform.position, 6, LayerMask.GetMask("Friendly"));
+        // if (colliders.Length > 0)
+        // {
+        //     _enemyTransform = colliders[0].transform;
+        //     IsFollowingPath = false;
+        // }
+        // else
+        // {
+        //     IsFollowingPath = true;
+        // }
+        
+        
+        // Collider[] colliders = Physics.OverlapSphere(transform.position, 6, LayerMask.GetMask("Friendly"));
+        // if (colliders != null)
+        // {
+        //     foreach (var collider in colliders)
+        //     {
+        //         // if (collider.CompareTag("Friendly"))
+        //         // {
+        //             _enemyTransform = collider.transform;
+        //             // onPossitionChanged.Invoke(false); // Можливо, потрібно оновити позицію ворога
+        //             break;
+        //         // }
+        //     }
+        //     AttackEnemy();
+        // }
+        // else
+        // {
+        //     isAttacking = false;
+        // }
     }
 
     private void RecalculatePath(bool resetPath)
     {
+        if (_gridManager == null)
+        {
+            return;
+        }
         Vector2Int coordinates = new Vector2Int();
 
         if (resetPath)
@@ -57,9 +159,9 @@ public class EnemyMover : MonoBehaviour
         transform.position = _gridManager.GetPositionFromCoordinates(_pathFinder.StartCoordinates);
     }
 
-    void FinishPath()
+    public void FinishPath()
     {
-        _enemy.StealGold();
+        _unit.WithdrawGold();
         gameObject.SetActive(false);
     }
    
@@ -83,17 +185,24 @@ public class EnemyMover : MonoBehaviour
                 Quaternion endRotation = Quaternion.LookRotation(endPosition - startPosition);
 
                 float travelPercent = 0f;
-                while (travelPercent < 1)
+                while (travelPercent < 1 && _isFollowingPath)
                 {
                     travelPercent += Time.deltaTime * _movementSpeed;
-    
+
                     float rotationTravelPercent = Mathf.Min(travelPercent * _rotationSpeed, 1f);
                     transform.position = Vector3.Lerp(startPosition, endPosition, travelPercent);
                     transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationTravelPercent);
-    
-                    animator.SetInteger("Walking", 1);
-    
+
+                    animator.SetBool("Walking", true);
+                    // animator.SetBool("Attacking", false);
+
                     yield return new WaitForEndOfFrame();
+                }
+
+                if (!_isFollowingPath)
+                {
+                    // If not following path, break out of the loop
+                    break;
                 }
             }
         }
@@ -102,10 +211,22 @@ public class EnemyMover : MonoBehaviour
             yield return null;
         }
 
-        animator.SetInteger("Attacking", 1);
-        animator.SetInteger("Walking", 0);
-        
-      FinishPath();
-      
+        // animator.SetBool("Attacking", true);
+        animator.SetBool("Walking", false);
+
+        // FinishPath();
+    }
+
+    
+
+    public void StopFollowingPath()
+    {
+        // transform.LookAt(_enemyTransform);
+    }
+
+ 
+    public void ResumeFollowingPath()
+    {
+        RecalculatePath(false);
     }
 }

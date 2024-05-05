@@ -14,7 +14,7 @@ public class testRot : MonoBehaviour
     
     private void FindClosestTarget()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Unit[] enemies = FindObjectsOfType<Unit>();
         Transform closestTarget = null;
         float maxDistance = Mathf.Infinity;
 

@@ -46,28 +46,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\testRot.cs" />
+    <Compile Include="Assets\_Scripts\CrusaderMover.cs" />
     <Compile Include="Assets\_Scripts\Tiles\Tile.cs" />
-    <Compile Include="Assets\_Scripts\Crusader.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\FollowTarget.cs" />
-    <Compile Include="Assets\_Scripts\Enemies\EnemyHealth.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\_Scripts\Enemies\ObjectPool.cs" />
-    <Compile Include="Assets\_Scripts\CrusaderPathFinder.cs" />
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
+    <Compile Include="Assets\_Scripts\Enemies\Unit.cs" />
     <Compile Include="Assets\_Scripts\Enemies\EnemyMover.cs" />
-    <Compile Include="Assets\_Scripts\UnitySelector.cs" />
+    <Compile Include="Assets\_Scripts\Camera\MousePositionTracker.cs" />
+    <Compile Include="Assets\_Scripts\Layers\LayersManager.cs" />
     <Compile Include="Assets\_Scripts\Bank\Bank.cs" />
     <Compile Include="Assets\TestingPathChecker.cs" />
+    <Compile Include="Assets\_Scripts\Enemies\UnitHealth.cs" />
+    <Compile Include="Assets\_Scripts\Tiles\SelectedTile.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\ProgressBar.cs" />
-    <Compile Include="Assets\_Scripts\Enemies\Enemy.cs" />
+    <Compile Include="Assets\_Scripts\Layers\ProjectLayers.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\GridManager.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\PathFinder.cs" />
     <Compile Include="Assets\_InputSystem\InputReader.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\Node.cs" />
     <Compile Include="Assets\_Scripts\Towers\TargetLocator.cs" />
+    <Compile Include="Assets\_Scripts\UnitSelector.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\TextUpdater.cs" />
     <Compile Include="Assets\_Scripts\Tiles\CoordinateLabeler.cs" />
+    <Compile Include="Assets\_Scripts\UnitAttack.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

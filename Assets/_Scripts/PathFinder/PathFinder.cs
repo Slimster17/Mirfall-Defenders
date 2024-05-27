@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = System.Random;
 
 public class PathFinder : MonoBehaviour
 {
@@ -89,13 +90,26 @@ public class PathFinder : MonoBehaviour
     //     
     //     return GetNewPath();
     // }
-
+    
+    private void ShuffleDirections()
+    {
+        Random random = new Random();
+        int n = _directions.Length;
+        while (n > 1)
+        {
+            int k = random.Next(n--);
+            Vector2Int temp = _directions[n];
+            _directions[n] = _directions[k];
+            _directions[k] = temp;
+        }
+    }
     public List<Node> GetNewPath()
     {
         return GetNewPath(_startCoordinates);
     }
     public List<Node> GetNewPath(Vector2Int coordinates)
     {
+        ShuffleDirections();
         _gridManager.ResetNodes();
         BreadthFirstSearch(coordinates);
         return BuildPath();
@@ -104,10 +118,10 @@ public class PathFinder : MonoBehaviour
     private void ExploreNeighbors()
     {
         // Debug.Log($"{gameObject} ::::: {_currentSearchNode.coordinates} || {_grid} || {_unit}");
-        if (_currentSearchNode == null || _grid == null || _unit == null)
-        {
-            return;
-        }
+        // if (_currentSearchNode == null || _grid == null || _unit == null)
+        // {
+        //     return;
+        // }
         
         List<Node> neighbors = new List<Node>();
 

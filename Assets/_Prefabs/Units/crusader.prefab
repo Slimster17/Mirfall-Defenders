@@ -236,13 +236,16 @@ PrefabInstance:
       addedObject: {fileID: 5745354376201410998}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7876633172065624130}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5802743032437034981}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1720691286514236493}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7880362704806523552}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5807892612124165133}
     - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 18708686318715529}
@@ -295,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01e305a6585d614fa6e93d4aa400a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startCoordinates: {x: 0, y: 0}
+  _startCoordinates: {x: 6, y: 1}
   _destinationCoordinates: {x: 0, y: 0}
 --- !u!114 &5745354376201410998
 MonoBehaviour:
@@ -312,23 +315,6 @@ MonoBehaviour:
   goldReward: 25
   goldPenalty: 25
   _unitMask: 7
---- !u!114 &7876633172065624130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4155436353186431753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd235b54848490459c17126821c96ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementSpeed: 0.3
-  _rotationSpeed: 5
-  _targetEnemy: {fileID: 0}
-  _path: []
-  _isFollowingPath: 1
 --- !u!114 &5802743032437034981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +347,38 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 64
-  _angerRadius: 5
+  _angerRadius: 6
+  _enemyTransform: {fileID: 0}
+  _enemyUnitHealth: {fileID: 0}
+--- !u!114 &7880362704806523552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155436353186431753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0fffda4474e93d4bb30067b995ce1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementSpeed: 0.3
+  _rotationSpeed: 3
+  _isFollowingPath: 1
+  _path: []
+--- !u!114 &-5807892612124165133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155436353186431753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888a604a2f7d7014d9f94a3aedbde57c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetEnemy: {fileID: 0}
 --- !u!1 &6111346160214000487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7036213049465896255, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}

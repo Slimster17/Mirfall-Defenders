@@ -25,7 +25,7 @@ public class CoordinateLabeler : MonoBehaviour
 
     private UnitSelector _unitSelector;
     
-    private CrusaderMover _selectedCrusaderMover;
+    private UnitMover _selectedCrusaderMover;
     
     private void Awake()
     {
@@ -66,13 +66,13 @@ public class CoordinateLabeler : MonoBehaviour
             DisplayCoordinates();
             if (_selectedCrusaderMover != null)
             {
-                // SetColorLabels(_selectedCrusaderMover);
+                // SetColorLabels();
             }
         }
         
     }
     
-    private void OnUnitSelected(CrusaderMover crusaderMover)
+    private void OnUnitSelected(UnitMover crusaderMover)
     {
         if (_selectedCrusaderMover != null)
         {

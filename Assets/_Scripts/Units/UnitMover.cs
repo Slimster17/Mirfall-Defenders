@@ -56,15 +56,16 @@ public class UnitMover : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         _gridManager = FindObjectOfType<GridManager>();
-        _pathFinder = GetComponentInParent<PathFinder>();
         _unit = GetComponent<Unit>();
+        _pathFinder = _unit.PathFinder;
         _unitAttack = GetComponent<UnitAttack>();
     }
     
     private void OnEnable()
     {
+        IsFollowingPath = true;
         _lastPosition = transform.position;
-        _pathFinder.Unit = _unit;
+        // _pathFinder.Unit = _unit;
         ReturnToStart();
         RecalculatePath(true);
     }

@@ -45,16 +45,17 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.16f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ThrowingStone.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitAttack.cs" />
     <Compile Include="Assets\testRot.cs" />
     <Compile Include="Assets\_Scripts\Tiles\Tile.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\FollowTarget.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
+    <Compile Include="Assets\_Scripts\Units\AnimationEventHandler.cs" />
     <Compile Include="Assets\_Scripts\Towers\Trebuchet.cs" />
     <Compile Include="Assets\_Scripts\Units\Unit.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
+    <Compile Include="Assets\_Scripts\PathFinder\PathFinderRegistry.cs" />
     <Compile Include="Assets\_Scripts\Camera\MousePositionTracker.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitHealth.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitMover.cs" />
@@ -65,13 +66,18 @@
     <Compile Include="Assets\_Scripts\Units\UnitAnimator.cs" />
     <Compile Include="Assets\_Scripts\Units\ObjectPool.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\ProgressBar.cs" />
+    <Compile Include="Assets\_Scripts\UI\UnitSpawnSelector.cs" />
     <Compile Include="Assets\_Scripts\Layers\ProjectLayers.cs" />
+    <Compile Include="Assets\_Scripts\Towers\ThrowingStone.cs" />
+    <Compile Include="Assets\_Scripts\UI\ButtonUnitSpawner.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\GridManager.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\PathFinder.cs" />
     <Compile Include="Assets\_Scripts\Units\EnemyTracker.cs" />
     <Compile Include="Assets\_InputSystem\InputReader.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\Node.cs" />
     <Compile Include="Assets\_Scripts\Towers\TargetLocator.cs" />
+    <Compile Include="Assets\_Scripts\UI\SelectableUnits.cs" />
+    <Compile Include="Assets\_Scripts\UI\UnitSpawner.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\TextUpdater.cs" />
     <Compile Include="Assets\_Scripts\Tiles\CoordinateLabeler.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitSelector.cs" />
@@ -90,6 +96,8 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Fonts\MedievalSharp\FONTLOG.txt" />
+    <None Include="Assets\Fonts\MedievalSharp\SIL - Open Font License.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />

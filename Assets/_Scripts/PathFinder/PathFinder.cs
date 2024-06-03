@@ -49,6 +49,32 @@ public class PathFinder : MonoBehaviour
             _destinationNode = _grid[_destinationCoordinates]; 
         }
     }
+    
+    public void CopyFrom(PathFinder other)
+    {
+        if (other == null)
+        {
+            Debug.LogError("Cannot copy from a null PathFinder object.");
+            return;
+        }
+
+        _startCoordinates = other._startCoordinates;
+        _destinationCoordinates = other._destinationCoordinates;
+        
+        _startNode = other._startNode;
+        _destinationNode = other._destinationNode;
+        _currentSearchNode = other._currentSearchNode;
+
+        _frontier = new Queue<Node>(other._frontier);
+        _reached = new Dictionary<Vector2Int, Node>(other._reached);
+        _directions = (Vector2Int[])other._directions.Clone();
+
+        _gridManager = other._gridManager;
+        _grid = new Dictionary<Vector2Int, Node>(other._grid);
+
+        _unit = other._unit;
+    }
+    
     private void Awake()
     {
         _gridManager = FindObjectOfType<GridManager>();
@@ -118,10 +144,11 @@ public class PathFinder : MonoBehaviour
     private void ExploreNeighbors()
     {
         // Debug.Log($"{gameObject} ::::: {_currentSearchNode.coordinates} || {_grid} || {_unit}");
-        // if (_currentSearchNode == null || _grid == null || _unit == null)
-        // {
-        //     return;
-        // }
+
+        if (_currentSearchNode == null || _grid == null || _unit == null)
+        {
+            return;
+        }
         
         List<Node> neighbors = new List<Node>();
 

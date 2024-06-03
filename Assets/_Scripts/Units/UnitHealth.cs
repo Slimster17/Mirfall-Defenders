@@ -13,6 +13,7 @@ public class UnitHealth : MonoBehaviour
     [SerializeField] private bool _hasDifficultyRamp = false;
 
     private int _currentHitPoint = 0;
+    public bool _isDead = false;
 
     private Unit _unit;
     
@@ -39,8 +40,18 @@ public class UnitHealth : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Debug.Log($"{gameObject.name} hit point: {_currentHitPoint}");
+    }
+
     public void ProcessHit()
     {
+        if (_isDead)
+        {
+            return; // Exit if the unit is already dead
+        }
+
         // Debug.Log($"{gameObject.name} being attacked - current hit point  {_currentHitPoint}");
         _currentHitPoint--;
         float progress = (_currentHitPoint > 0) ? (float)_currentHitPoint / (float)_maxHitPoint : 0.01f;
@@ -48,8 +59,11 @@ public class UnitHealth : MonoBehaviour
         _healthBar.SetProgress(progress,3);
         if (_currentHitPoint < 0)
         {
-            gameObject.SetActive(false);
-            _healthBar.gameObject.SetActive(false);
+            _isDead = true;
+            _unit.UnitMover.IsFollowingPath = false;
+            _unit.UnitAnimator.PlayDeathAnimation();
+            
+            // Die();
             if (_hasDifficultyRamp)
             {
                 _maxHitPoint += _difficultyRamp;
@@ -64,12 +78,20 @@ public class UnitHealth : MonoBehaviour
         }
     }
 
-    
+    public void Die()
+    {
+        _unit.UnitAnimator.StopAnimations();
+        gameObject.SetActive(false);
+        _healthBar.gameObject.SetActive(false);
+    }
+
+
     void OnEnable()
     {
         _currentHitPoint = _maxHitPoint;
         _healthBar.ResetProgress();
         _healthBar.gameObject.SetActive(true);
+        _isDead = false;
     }
 
     private void OnDisable()

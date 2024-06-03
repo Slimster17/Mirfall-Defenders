@@ -132,33 +132,44 @@ public class Trebuchet : MonoBehaviour
     
     private IEnumerator RotateToTarget()
     {
-        
         Vector3 startPosition = transform.position;
-        Vector3 endPosition = attackPoint.position;
+        Vector3 endPosition = new Vector3(attackPoint.position.x, startPosition.y, attackPoint.position.z); // Ensure the end position is at the same height as the start position
 
         Quaternion startRotation = _trebuchetPlatform.transform.rotation;
         Quaternion endRotation = Quaternion.LookRotation(endPosition - startPosition);
-        
+
         float rotationPercent = 0f;
         while (rotationPercent < 1)
         {
             rotationPercent += Time.deltaTime * _rotationSpeed;
-            transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationPercent);
+            Quaternion currentRotation = Quaternion.Lerp(startRotation, endRotation, rotationPercent);
+            _trebuchetPlatform.transform.rotation = Quaternion.Euler(0, currentRotation.eulerAngles.y, 0); // Constrain rotation to Y-axis only
 
-            // Якщо різниця між поточним кутом і цільовим кутом дуже маленька, завершити корутину
-            if (Quaternion.Angle(transform.rotation, endRotation) < 5f)
+            // If the difference between the current angle and the target angle is very small, finish the coroutine
+            if (Quaternion.Angle(_trebuchetPlatform.transform.rotation, endRotation) < 5f)
             {
-                transform.rotation = endRotation;
+                _trebuchetPlatform.transform.rotation = Quaternion.Euler(0, endRotation.eulerAngles.y, 0);
                 break;
             }
 
             yield return new WaitForEndOfFrame();
         }
-        
+
         _hasThrown = true;
-        Debug.Log($"RotationCompleted");
+        Debug.Log("RotationCompleted");
         _animator.SetBool("Attacking", true);
         readyToThrow = false;
         // _animator.SetBool("Attacking", false);
+    }
+
+
+    public void SetTargetPosition(Transform target)
+    {
+        attackPoint = target;
+    }
+
+    public void Attack()
+    {
+        isAttacking = true;
     }
 }

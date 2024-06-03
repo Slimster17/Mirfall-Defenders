@@ -12,6 +12,7 @@ public class UnitAttack : MonoBehaviour
     [SerializeField] private Transform _enemyTransform;
     [SerializeField] private UnitHealth _enemyUnitHealth;
     private Coroutine _attackRoutine;
+    private Unit _unit;
 
     public LayerMask TargetMask
     {
@@ -26,6 +27,7 @@ public class UnitAttack : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _unit = GetComponent<Unit>();
     }
 
     private void OnEnable()
@@ -74,7 +76,7 @@ public class UnitAttack : MonoBehaviour
     {
         while (CheckEnemiesNearby())
         {
-            if (_enemyTransform != null)
+            if (_enemyTransform != null && !_unit.UnitHealth._isDead)
             {
                 yield return StartCoroutine(Attack(_enemyTransform));
             }
@@ -87,11 +89,15 @@ public class UnitAttack : MonoBehaviour
 
     private IEnumerator Attack(Transform enemyTransform)
     {
+        if (_enemyTransform == null || _enemyUnitHealth == null || _unit.UnitHealth._isDead)
+        {
+            yield break;
+        }
         transform.LookAt(enemyTransform);
         
         _animator.SetBool("Attacking", true);
 
-        while (_enemyUnitHealth != null && _enemyUnitHealth.CurrentHitPoint > -1)
+        while (_enemyUnitHealth != null && !_unit.UnitHealth._isDead)
         {
             _enemyUnitHealth.ProcessHit();
             yield return new WaitForSeconds(1f); // Delay between hits

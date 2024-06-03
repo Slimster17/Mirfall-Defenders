@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int goldReward = 25;
     [SerializeField] private int goldPenalty = 25;
     [SerializeField] private ProjectLayers _unitMask;
+    [SerializeField] private bool _hasSeparatedPaths;
 
     private Bank _bank;
 
@@ -25,7 +26,7 @@ public class Unit : MonoBehaviour
     public UnitHealth UnitHealth {get { return _unitHealth; } }
     public UnitAttack UnitAttack {get { return _unitAttack; } }
     public UnitMover UnitMover {get { return _unitMover; } }
-    public PathFinder PathFinder {get { return _pathFinder; } }
+    public PathFinder PathFinder {get { return _pathFinder; } set { _pathFinder = value; } }
     
     
     public ProjectLayers UnitMask {get { return _unitMask; } }
@@ -41,12 +42,24 @@ public class Unit : MonoBehaviour
         _unitHealth = GetComponent<UnitHealth>();
         _unitAttack = GetComponent<UnitAttack>();
         _unitMover = GetComponent<UnitMover>();
-        _pathFinder = GetComponent<PathFinder>();
 
-        if (_pathFinder == null)
+        if (_hasSeparatedPaths)
         {
-            _pathFinder = GetComponentInParent<PathFinder>();
+            PathFinder parentPathFinder = GetComponentInParent<PathFinder>();
+            
+            PathFinder = gameObject.AddComponent<PathFinder>();
+            // PathFinder.StartCoordinates = parentPathFinder.StartCoordinates;
+            // PathFinder.DestinationCoordinates = parentPathFinder.DestinationCoordinates;
+            PathFinder.CopyFrom(parentPathFinder);
+
         }
+        else
+        {
+            PathFinder = GetComponentInParent<PathFinder>();;
+            
+        }
+        PathFinderRegistry.RegisterPathFinder(PathFinder);
+        PathFinder.Unit = this;
     }
     
     public void RewardGold()
@@ -66,4 +79,5 @@ public class Unit : MonoBehaviour
         }
         _bank.Withdraw(goldPenalty);
     }
+    
 }

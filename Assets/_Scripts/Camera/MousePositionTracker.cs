@@ -37,9 +37,14 @@ public class MousePositionTracker : MonoBehaviour
             if (tile != null && tile.IsPlaceable)
             {
                 _selectedTile.transform.position = hit.collider.gameObject.transform.position + _offset;
-                
+                _selectedTile.Selected = tile;
                 // Trebuchet trebuchet = FindObjectOfType<Trebuchet>();
                 // trebuchet.RotateToTarget(hit.collider.gameObject.transform.position);
+            }
+            else
+            {
+                _selectedTile.Selected = null;
+                _selectedTile.transform.position = new Vector3(0, -10, 0);
             }
         }
         

@@ -8,6 +8,8 @@ public class EnemyTracker : MonoBehaviour
     [SerializeField] private Transform _targetEnemy;
     private Vector3 _lastEnemyPosition;
     private Unit _unit;
+    private float _pathRecalculateDelay = 1f;
+    private float _lastPathRecalculateTime;
     
     private void FindNearestEnemy()
     {
@@ -52,12 +54,18 @@ public class EnemyTracker : MonoBehaviour
             FindNearestEnemy();
             
         }
-
-        if (Vector3.Distance(_targetEnemy.position, _lastEnemyPosition) > 3f)
+        else
         {
-            _unit.PathFinder.DestinationCoordinates = GetEnemyCoordinates();
-            _unit.UnitMover.RecalculatePath(false);
-            
+            if (Vector3.Distance(_targetEnemy.position, _lastEnemyPosition) > 4f &&
+                Time.time - _lastPathRecalculateTime > _pathRecalculateDelay)
+            {
+                _lastEnemyPosition = _targetEnemy.position; // Update last position to avoid continuous recalculations
+                _unit.PathFinder.DestinationCoordinates = GetEnemyCoordinates();
+                _unit.UnitMover.RecalculatePath(false);
+                _lastPathRecalculateTime = Time.time;
+            }
         }
+
+       
     }
 }

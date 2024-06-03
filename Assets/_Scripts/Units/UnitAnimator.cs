@@ -23,9 +23,15 @@ public class UnitAnimator : MonoBehaviour
         _animator.SetBool("Attacking", true);
     }
 
+    public void PlayDeathAnimation()
+    {
+        _animator.SetTrigger("Dying");
+    }
+
     public void StopAnimations()
     {
         _animator.SetBool("Walking", false);
         _animator.SetBool("Attacking", false);
+        _animator.SetBool("Dying",false);
     }
 }

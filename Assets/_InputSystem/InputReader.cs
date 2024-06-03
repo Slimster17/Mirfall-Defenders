@@ -56,8 +56,14 @@ public class InputReader : MonoBehaviour,
 
     public void OnClick(InputAction.CallbackContext context)
     {
+        
         if (context.performed)
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit hit;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class Tile : MonoBehaviour
@@ -13,6 +14,8 @@ public class Tile : MonoBehaviour
     private GridManager _gridManager;
     private PathFinder[] _pathFinders;
     private Vector2Int _coordinates;
+    
+    public Vector2Int Coordinates => _coordinates;
 
     public bool IsPlaceable
     {
@@ -51,17 +54,22 @@ public class Tile : MonoBehaviour
 
     private void OnClickInput(Vector3 direction, GameObject clickedObject)
     {
-        if (clickedObject == gameObject && 
-            _gridManager.GetNode(_coordinates).isWalkable && 
-            CheckAllPathFindersBlocks())
-        {
-            bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
-            if (isSuccessful)
-            {
-                _gridManager.BlockNode(_coordinates);
-                NotifyAllPathFinders();
-            }
-        }
+        // if (EventSystem.current.IsPointerOverGameObject())
+        // {
+        //     return;
+        // }
+        
+        // if (clickedObject == gameObject && 
+        //     _gridManager.GetNode(_coordinates).isWalkable && 
+        //     CheckAllPathFindersBlocks())
+        // {
+        //     bool isSuccessful = _placeableObject.CreateTower(_placeableObject,transform.position);
+        //     if (isSuccessful)
+        //     {
+        //         _gridManager.BlockNode(_coordinates);
+        //         NotifyAllPathFinders();
+        //     }
+        // }
     }
 
     private bool CheckAllPathFindersBlocks()

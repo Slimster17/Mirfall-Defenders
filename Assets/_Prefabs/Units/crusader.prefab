@@ -230,9 +230,6 @@ PrefabInstance:
       addedObject: {fileID: 1565223369087896363}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1494747388608921595}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5745354376201410998}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
@@ -246,9 +243,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5807892612124165133}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7550637977031540234}
     - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
       insertIndex: -1
       addedObject: {fileID: 18708686318715529}
+    - targetCorrespondingSourceObject: {fileID: 7036213049465896255, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2907594730306322126}
   m_SourcePrefab: {fileID: 100100000, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
 --- !u!4 &1446725797201769072 stripped
 Transform:
@@ -286,20 +289,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 4.7720065, z: 2.0320716}
   m_Center: {x: 6.2690467e-15, y: 1.8860033, z: 0.047908515}
---- !u!114 &1494747388608921595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4155436353186431753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a01e305a6585d614fa6e93d4aa400a2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startCoordinates: {x: 6, y: 1}
-  _destinationCoordinates: {x: 0, y: 0}
 --- !u!114 &5745354376201410998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +304,7 @@ MonoBehaviour:
   goldReward: 25
   goldPenalty: 25
   _unitMask: 7
+  _hasSeparatedPaths: 1
 --- !u!114 &5802743032437034981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,11 +317,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e84c2462568d8478dbac51b7c0ae4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHitPoint: 4
+  _maxHitPoint: 3
   _difficultyRamp: 1
   _healthBar: {fileID: 6490792188136122865}
   _healthBarCanvas: {fileID: 0}
   _hasDifficultyRamp: 0
+  _isDead: 0
 --- !u!114 &1720691286514236493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +338,7 @@ MonoBehaviour:
   _targetMask:
     serializedVersion: 2
     m_Bits: 64
-  _angerRadius: 6
+  _angerRadius: 7
   _enemyTransform: {fileID: 0}
   _enemyUnitHealth: {fileID: 0}
 --- !u!114 &7880362704806523552
@@ -362,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fffda4474e93d4bb30067b995ce1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 0.3
+  _movementSpeed: 0.6
   _rotationSpeed: 3
   _isFollowingPath: 1
   _path: []
@@ -379,6 +370,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetEnemy: {fileID: 0}
+--- !u!114 &7550637977031540234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4155436353186431753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e69666849a53b4a87ea44adeae707b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6111346160214000487 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7036213049465896255, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}
@@ -405,6 +408,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2907594730306322126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111346160214000487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b094f1c79d8d240bcfe4c004cb7d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parentGameObject: {fileID: 4155436353186431753}
 --- !u!4 &7502207538441001953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6734931530170869177, guid: 88a41faaf3950554db34db5bce7b1b33, type: 3}

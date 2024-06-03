@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class Bank : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Bank : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _displayBalance;
     
     private int _currentBalance;
+    public UnityEvent onBalanceChanged = new UnityEvent();
 
     private void Awake()
     {
@@ -44,6 +46,7 @@ public class Bank : MonoBehaviour
     private void UpdateDisplay()
     {
         _displayBalance.text = $"Gold: {_currentBalance}";
+        onBalanceChanged.Invoke();
     }
 
     void RealadScene()

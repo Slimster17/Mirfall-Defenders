@@ -91,13 +91,17 @@ public class TargetLocator : MonoBehaviour
     {
         if (_target != null)
         {
+            UnitHealth targetHealth = _target.GetComponent<UnitHealth>();
             float targetDistance = Vector3.Distance(transform.position, _target.position);
 
-            if (targetDistance < _fireRange)
+            if (targetDistance < _fireRange && !targetHealth._isDead)
             {
                 Attack(true);
                 RotateCharacter();
-                _weaponArm.LookAt(_target);
+                Vector3 targetPosition = _target.position;
+                targetPosition.y += 1.0f; // Look 1 unit higher
+                _weaponArm.LookAt(targetPosition);
+                // _weaponArm.LookAt(_target);
             }
             else
             {

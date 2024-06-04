@@ -48,13 +48,20 @@
     <Compile Include="Assets\_Scripts\Units\UnitAttack.cs" />
     <Compile Include="Assets\testRot.cs" />
     <Compile Include="Assets\_Scripts\Tiles\Tile.cs" />
+    <Compile Include="Assets\WorldSkies\Demo\Scripts\LookCamera.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\FollowTarget.cs" />
+    <Compile Include="Assets\_Scripts\Sounds\SoundManager.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
+    <Compile Include="Assets\_Scripts\Sounds\NewBehaviourScript.cs" />
+    <Compile Include="Assets\_Scripts\Sounds\TowerArcherSoundsPlayer.cs" />
     <Compile Include="Assets\_Scripts\Units\AnimationEventHandler.cs" />
+    <Compile Include="Assets\_Scripts\Camera\FogOfWar.cs" />
     <Compile Include="Assets\_Scripts\Towers\Trebuchet.cs" />
     <Compile Include="Assets\_Scripts\Units\Unit.cs" />
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
+    <Compile Include="Assets\_Scripts\Towers\TowerEmissionController.cs" />
+    <Compile Include="Assets\_Scripts\Sounds\TrebuchetSoundsPlayer.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\PathFinderRegistry.cs" />
     <Compile Include="Assets\_Scripts\Camera\MousePositionTracker.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitHealth.cs" />
@@ -64,6 +71,8 @@
     <Compile Include="Assets\TestingPathChecker.cs" />
     <Compile Include="Assets\_Scripts\Tiles\SelectedTile.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitAnimator.cs" />
+    <Compile Include="Assets\_Scripts\Sounds\UnitSoundsPlayer.cs" />
+    <Compile Include="Assets\_Scripts\UI\DropDownButton.cs" />
     <Compile Include="Assets\_Scripts\Units\ObjectPool.cs" />
     <Compile Include="Assets\_Scripts\ProgressBar\ProgressBar.cs" />
     <Compile Include="Assets\_Scripts\UI\UnitSpawnSelector.cs" />
@@ -73,6 +82,7 @@
     <Compile Include="Assets\_Scripts\PathFinder\GridManager.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\PathFinder.cs" />
     <Compile Include="Assets\_Scripts\Units\EnemyTracker.cs" />
+    <Compile Include="Assets\WorldSkies\Demo\Scripts\SkyboxChanger.cs" />
     <Compile Include="Assets\_InputSystem\InputReader.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\Node.cs" />
     <Compile Include="Assets\_Scripts\Towers\TargetLocator.cs" />
@@ -726,6 +736,72 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.16f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.EditorCoroutines.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Burst.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Burst">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Shared.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Core">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Core.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Config.Runtime">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualScripting.Flow.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
     </Reference>
@@ -738,17 +814,14 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.EditorCoroutines.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
@@ -756,38 +829,26 @@
     <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Model">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.VisualScripting.State.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.State.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
+    <Reference Include="PPv2URPConverters">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\PPv2URPConverters.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Shared.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Core">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Core.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
@@ -795,11 +856,8 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualScripting.Flow">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VisualScripting.Flow.Editor">
-      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>D:\Unity\Mirfall Defenders\Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

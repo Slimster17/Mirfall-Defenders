@@ -11,6 +11,11 @@ public class GridManager : MonoBehaviour
     
     private Dictionary<int, List<Vector2Int>> _paths = new Dictionary<int, List<Vector2Int>>();
 
+    
+    public Vector2Int GridSize
+    {
+        get { return _gridSize; }
+    }
     public int UnityGridSize
     {
         get { return _unityGridSize; }

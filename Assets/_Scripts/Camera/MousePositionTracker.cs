@@ -34,7 +34,7 @@ public class MousePositionTracker : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             Tile tile = hit.collider.gameObject.GetComponent<Tile>();
-            if (tile != null && tile.IsPlaceable)
+            if (tile != null && tile.IsPlaceable && tile.TileLayerMask == ProjectLayers.Default)
             {
                 _selectedTile.transform.position = hit.collider.gameObject.transform.position + _offset;
                 _selectedTile.Selected = tile;

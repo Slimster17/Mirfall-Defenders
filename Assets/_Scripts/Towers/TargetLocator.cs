@@ -23,6 +23,9 @@ public class TargetLocator : MonoBehaviour
     [SerializeField] private float targetingSpeed = 100f;
     
     private Animator _animator;
+    
+    public float FireRange {get { return _fireRange; }}
+    public float FireRate {get { return _fireRate; }}
 
     private void Awake()
     {
@@ -34,8 +37,8 @@ public class TargetLocator : MonoBehaviour
         FindClosestTarget();
         AimWeapon();
         
-        var emissionModule = _projectileParticles.emission;
-        emissionModule.rateOverTime = _fireRate;
+        // var emissionModule = _projectileParticles.emission;
+        // emissionModule.rateOverTime = _fireRate;
     }
 
     private void Update()
@@ -148,7 +151,7 @@ public class TargetLocator : MonoBehaviour
     private void Attack(bool isActive)
     {
         _animator.SetBool("isShooting",isActive);
-        var emissionModule = _projectileParticles.emission;
-        emissionModule.enabled = isActive;
+        // var emissionModule = _projectileParticles.emission;
+        // emissionModule.enabled = isActive;
     }
 }

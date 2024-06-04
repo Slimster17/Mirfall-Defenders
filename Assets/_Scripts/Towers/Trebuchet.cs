@@ -31,6 +31,7 @@ public class Trebuchet : MonoBehaviour
     private bool throwStone;
 
     private Animator _animator;
+    private bool hasPlayedRotationSound = false;
 
 
 
@@ -65,6 +66,7 @@ public class Trebuchet : MonoBehaviour
     {
         if (isAttacking && !_hasThrown)
         {
+           
             _stone.SetFireBallEffectsEnabled(true);
             StopAllCoroutines();
             StartCoroutine(RotateToTarget());
@@ -88,8 +90,8 @@ public class Trebuchet : MonoBehaviour
 
     public void Throw()
     {
-        Debug.Log($"Throwing");
-
+        SoundManager.StopSound();
+        // Debug.Log($"Throwing");
         _stone.TargetMask = _targetMask;
         _stone.PrepareForThrow();
 
@@ -127,11 +129,17 @@ public class Trebuchet : MonoBehaviour
         isAttacking = false;
         _hasThrown = false;
         _animator.SetBool("Attacking", false);
+        hasPlayedRotationSound = false;
     }
 
     
     private IEnumerator RotateToTarget()
     {
+        if (!hasPlayedRotationSound )
+        {
+            SoundManager.PlaySound(SoundType.TrebuchetRotation);
+            hasPlayedRotationSound = true; // Set the flag to true
+        }
         Vector3 startPosition = transform.position;
         Vector3 endPosition = new Vector3(attackPoint.position.x, startPosition.y, attackPoint.position.z); // Ensure the end position is at the same height as the start position
 
@@ -156,7 +164,7 @@ public class Trebuchet : MonoBehaviour
         }
 
         _hasThrown = true;
-        Debug.Log("RotationCompleted");
+        // Debug.Log("RotationCompleted");
         _animator.SetBool("Attacking", true);
         readyToThrow = false;
         // _animator.SetBool("Attacking", false);

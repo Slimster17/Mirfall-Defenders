@@ -13,6 +13,7 @@ public class UnitAttack : MonoBehaviour
     [SerializeField] private UnitHealth _enemyUnitHealth;
     private Coroutine _attackRoutine;
     private Unit _unit;
+    private bool _isAttacking;
 
     public LayerMask TargetMask
     {
@@ -23,6 +24,8 @@ public class UnitAttack : MonoBehaviour
         get { return _enemyTransform; }
         set { _enemyTransform = value; }
     }
+    
+    public bool IsAttacking { get { return _isAttacking; } }
 
     private void Awake()
     {
@@ -78,10 +81,12 @@ public class UnitAttack : MonoBehaviour
         {
             if (_enemyTransform != null && !_unit.UnitHealth._isDead)
             {
+                _isAttacking = true;
                 yield return StartCoroutine(Attack(_enemyTransform));
             }
             else
             {
+                _isAttacking = false;
                 yield break; // No enemy found, exit the loop
             }
         }
@@ -104,6 +109,7 @@ public class UnitAttack : MonoBehaviour
         }
         
         _animator.SetBool("Attacking", false);
+        _isAttacking = false;
     }
     
     private Transform GetClosestEnemy()

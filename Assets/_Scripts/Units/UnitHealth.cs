@@ -42,7 +42,7 @@ public class UnitHealth : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"{gameObject.name} hit point: {_currentHitPoint}");
+        // Debug.Log($"{gameObject.name} hit point: {_currentHitPoint}");
     }
 
     public void ProcessHit()

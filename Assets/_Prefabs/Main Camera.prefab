@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4855890011300186336}
   - component: {fileID: 5599384765196402651}
   - component: {fileID: 3264623581025707480}
+  - component: {fileID: 5459717675409462082}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -19,21 +20,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7345341643507174678
-Transform:
+--- !u!224 &7345341643507174678
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066329197340656619}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.49234506, y: 0.008741202, z: -0.0048146336, w: 0.87034297}
-  m_LocalPosition: {x: 5.8483634, y: 34.187374, z: -18.06638}
+  m_LocalRotation: {x: 0.6087317, y: 0.007932737, z: -0.006015837, w: 0.7933137}
+  m_LocalPosition: {x: 0, y: 0, z: -18.06638}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 58.993, y: 1.165, z: 0.025}
+  m_LocalEulerAnglesHint: {x: 75, y: 1.165, z: 0.025}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5.8483634, y: 34.187374}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!20 &4855890011300186336
 Camera:
   m_ObjectHideFlags: 0
@@ -44,7 +49,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.8113208, g: 0.8027075, b: 0.49368104, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -106,3 +111,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 50
+--- !u!114 &5459717675409462082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066329197340656619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1f78aefaa06a34aa3812bf35e155f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _offset: {x: 0, y: 0.2, z: 0}

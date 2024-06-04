@@ -126,20 +126,25 @@ public class UnitSpawner : MonoBehaviour
     {
         if (selectedTile == null)
         {
-            Debug.LogError("SelectedTile is null");
+            // Debug.LogError("SelectedTile is null");
             return;
         }
+
+        // if (selectedTile.Selected.TileLayerMask == ProjectLayers.Enemy)
+        // {
+        //     return;
+        // }
 
         var selected = selectedTile.Selected;
         if (selected == null)
         {
-            Debug.LogError("Selected tile is null");
+            // Debug.LogError("Selected tile is null");
             return;
         }
         
         if (unitSpawnSelector.SelectedUnit == SelectableUnits.TowerArcher)
         {
-            Debug.Log($"Unit spawner click");
+            // Debug.Log($"Unit spawner click");
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 return;
@@ -160,7 +165,7 @@ public class UnitSpawner : MonoBehaviour
 
         if (unitSpawnSelector.SelectedUnit == SelectableUnits.Trebuchet)
         {
-            Debug.Log("Trebuchet fire click");{}
+            // Debug.Log("Trebuchet fire click");{}
 
             Trebuchet trebuchet = FindObjectOfType<Trebuchet>();
             trebuchet.SetTargetPosition(selectedTile.Selected.transform);

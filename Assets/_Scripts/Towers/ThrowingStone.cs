@@ -47,6 +47,7 @@ public class ThrowingStone : MonoBehaviour
         _onTriggerEffectInstance.transform.position = other.transform.position;
 
         _onTriggerEffectInstance.Play();
+        SoundManager.PlaySound(SoundType.StoneHit);
     }
 
     private void CreateAreaOfAttack(Collider other)

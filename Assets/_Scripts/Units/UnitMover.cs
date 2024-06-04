@@ -136,8 +136,12 @@ public class UnitMover : MonoBehaviour
 
     public void FinishPath()
     {
-        _unit.WithdrawGold();
-        gameObject.SetActive(false);
+        if (_unit.UnitMask == ProjectLayers.Enemy && !_unit.UnitHealth._isDead && !_unit.UnitAttack.IsAttacking)
+        {
+            _unit.WithdrawGold();
+            gameObject.SetActive(false);
+        }
+       
     }
    
     IEnumerator FollowPath()
@@ -189,7 +193,7 @@ public class UnitMover : MonoBehaviour
         // animator.SetBool("Attacking", true);
         animator.SetBool("Walking", false);
 
-        // FinishPath();
+        FinishPath();
     }
 
     

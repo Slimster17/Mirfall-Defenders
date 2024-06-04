@@ -21,6 +21,8 @@ public class Tile : MonoBehaviour
     {
         get { return _isPlaceable; }
     }
+    
+    public ProjectLayers TileLayerMask => _tileLayerMask;
     private void Awake()
     {
         _gridManager = FindObjectOfType<GridManager>();

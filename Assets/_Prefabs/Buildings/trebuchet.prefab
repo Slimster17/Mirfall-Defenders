@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 1384968598101760973}
   - component: {fileID: 9209518265263978858}
   - component: {fileID: 3760048470685665119}
+  - component: {fileID: 7584359265846958861}
   m_Layer: 0
   m_Name: trebuchet
   m_TagString: Untagged
@@ -271,6 +272,18 @@ MonoBehaviour:
   maxThrowForce: 100
   maxDistance: 100
   _hasThrown: 0
+--- !u!114 &7584359265846958861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592392581640534552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f1ead16c54f584a836681ef9345fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2392318529333269467
 GameObject:
   m_ObjectHideFlags: 0
@@ -5659,6 +5672,7 @@ MonoBehaviour:
   _onTriggerEffect: {fileID: 1165885737553600540, guid: 3642a5d19262bd44da5d352ee4097cd1, type: 3}
   _trail: {fileID: 3288295063772070282}
   _attackRadius: 10
+  _damage: 10
 --- !u!54 &1843504020879876081
 Rigidbody:
   m_ObjectHideFlags: 0

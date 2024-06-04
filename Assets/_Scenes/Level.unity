@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 1, g: 0.8875879, b: 0.514151, a: 0}
   m_FogMode: 3
   m_FogDensity: 0.03
@@ -22190,7 +22190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startCoordinates: {x: 0, y: 0}
-  _destinationCoordinates: {x: 9, y: 3}
+  _destinationCoordinates: {x: 17, y: 13}
 --- !u!1001 &669553554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32949,10 +32949,12 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: 48a7332c35de83147a0c7763ecdcd8e8, type: 3}
     - {fileID: 8300000, guid: 400aaa6890012244cba2ea81ecd32ae9, type: 3}
-  - name: FootStep
+  - name: Music
     volume: 1
     mixer: {fileID: 0}
-    sounds: []
+    sounds:
+    - {fileID: 8300000, guid: ee95297e55c3aa240a22bdadbbcca122, type: 3}
+    - {fileID: 8300000, guid: d667e09c402700548ac9a3a81de3ff46, type: 3}
 --- !u!82 &967952187
 AudioSource:
   m_ObjectHideFlags: 0
@@ -43857,6 +43859,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8976467509582889820, guid: 86f516700d29f67499a7f4808ee9964a, type: 3}
   m_PrefabInstance: {fileID: 813250065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1310346892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310346893}
+  - component: {fileID: 1310346894}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1310346893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310346892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.43110085, y: 0.952425, z: 18.961098}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1310346894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310346892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 317dd07f8be7f2a42abf9bad4f25dfb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1311179038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49148,8 +49194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01e305a6585d614fa6e93d4aa400a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startCoordinates: {x: 2, y: 4}
-  _destinationCoordinates: {x: 6, y: 3}
+  _startCoordinates: {x: 17, y: 13}
+  _destinationCoordinates: {x: 11, y: 4}
 --- !u!114 &1490012670 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
@@ -74038,7 +74084,7 @@ PrefabInstance:
       objectReference: {fileID: 2082286618}
     - target: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
       propertyPath: _poolSize
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1995788149074521721, guid: 76934ff5180133f46ae424ac2becdf04, type: 3}
       propertyPath: _spawnTimer
@@ -74273,3 +74319,4 @@ SceneRoots:
   - {fileID: 1767040898}
   - {fileID: 956342348}
   - {fileID: 967952188}
+  - {fileID: 1310346893}

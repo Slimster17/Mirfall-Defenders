@@ -390,6 +390,7 @@
 "Assets/_Scripts/ProgressBar/FollowTarget.cs"
 "Assets/_Scripts/ProgressBar/ProgressBar.cs"
 "Assets/_Scripts/ProgressBar/TextUpdater.cs"
+"Assets/_Scripts/Sounds/MusicManager.cs"
 "Assets/_Scripts/Sounds/NewBehaviourScript.cs"
 "Assets/_Scripts/Sounds/SoundManager.cs"
 "Assets/_Scripts/Sounds/TowerArcherSoundsPlayer.cs"

@@ -13,7 +13,7 @@ public enum SoundType
     TrebuchetFire,
     StoneHit,
     ManDeath,
-    FootStep
+    Music
 }
 
 [RequireComponent(typeof(AudioSource))]
@@ -36,6 +36,18 @@ public class SoundManager : MonoBehaviour
         AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
         instance.audioSource.outputAudioMixerGroup = soundList.mixer;
         instance.audioSource.PlayOneShot(randomClip, volume * soundList.volume);
+    }
+    
+    public static void PlayLoopingSound(SoundType sound, AudioSource source, float volume = 1)
+    {
+        SoundList soundList = instance.soundList[(int)sound];
+        AudioClip[] clips = soundList.sounds;
+        AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
+        source.outputAudioMixerGroup = soundList.mixer;
+        source.clip = randomClip;
+        source.volume = volume * soundList.volume;
+        source.loop = false; // Ensure it does not loop automatically
+        source.Play();
     }
     
     public static void StopSound()

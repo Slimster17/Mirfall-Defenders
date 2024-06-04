@@ -33,11 +33,13 @@ public class Trebuchet : MonoBehaviour
     private Animator _animator;
     private bool hasPlayedRotationSound = false;
 
+    private AudioSource rotationAudioSource;
 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        rotationAudioSource = gameObject.AddComponent<AudioSource>();
        
     }
     
@@ -90,7 +92,7 @@ public class Trebuchet : MonoBehaviour
 
     public void Throw()
     {
-        SoundManager.StopSound();
+        // SoundManager.StopSound();
         // Debug.Log($"Throwing");
         _stone.TargetMask = _targetMask;
         _stone.PrepareForThrow();
@@ -135,11 +137,12 @@ public class Trebuchet : MonoBehaviour
     
     private IEnumerator RotateToTarget()
     {
-        if (!hasPlayedRotationSound )
+        if (!hasPlayedRotationSound)
         {
-            SoundManager.PlaySound(SoundType.TrebuchetRotation);
+            SoundManager.PlayLoopingSound(SoundType.TrebuchetRotation, rotationAudioSource);
             hasPlayedRotationSound = true; // Set the flag to true
         }
+        
         Vector3 startPosition = transform.position;
         Vector3 endPosition = new Vector3(attackPoint.position.x, startPosition.y, attackPoint.position.z); // Ensure the end position is at the same height as the start position
 
@@ -167,6 +170,9 @@ public class Trebuchet : MonoBehaviour
         // Debug.Log("RotationCompleted");
         _animator.SetBool("Attacking", true);
         readyToThrow = false;
+        
+        rotationAudioSource.Stop();
+        hasPlayedRotationSound = false;
         // _animator.SetBool("Attacking", false);
     }
 

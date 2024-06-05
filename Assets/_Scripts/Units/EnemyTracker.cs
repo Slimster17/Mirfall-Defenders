@@ -11,6 +11,8 @@ public class EnemyTracker : MonoBehaviour
     private float _pathRecalculateDelay = 1f;
     private float _lastPathRecalculateTime;
     
+    public Transform TargetEnemy{get{return _targetEnemy;} set{_targetEnemy = value;}}
+    
     private void FindNearestEnemy()
     {
         if (_targetEnemy == null)

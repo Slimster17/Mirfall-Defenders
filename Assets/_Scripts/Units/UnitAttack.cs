@@ -14,6 +14,7 @@ public class UnitAttack : MonoBehaviour
     private Coroutine _attackRoutine;
     private Unit _unit;
     private bool _isAttacking;
+    private EnemyTracker _enemyTracker;
 
     public LayerMask TargetMask
     {
@@ -31,6 +32,7 @@ public class UnitAttack : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _unit = GetComponent<Unit>();
+        _enemyTracker = GetComponent<EnemyTracker>();
     }
 
     private void OnEnable()
@@ -109,6 +111,12 @@ public class UnitAttack : MonoBehaviour
         }
         
         _animator.SetBool("Attacking", false);
+        
+        if (_enemyTracker != null)
+        {
+            _enemyTracker.TargetEnemy = null;
+        }
+        
         _isAttacking = false;
     }
     

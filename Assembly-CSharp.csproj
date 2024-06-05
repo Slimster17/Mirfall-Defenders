@@ -62,7 +62,9 @@
     <Compile Include="Assets\_Scripts\Camera\CameraMover.cs" />
     <Compile Include="Assets\_Scripts\Towers\Tower.cs" />
     <Compile Include="Assets\_Scripts\Towers\TowerEmissionController.cs" />
+    <Compile Include="Assets\_Scripts\SceneManager\SceneLoader.cs" />
     <Compile Include="Assets\_Scripts\Sounds\TrebuchetSoundsPlayer.cs" />
+    <Compile Include="Assets\_Scripts\SceneManager\LevelSelector.cs" />
     <Compile Include="Assets\_Scripts\PathFinder\PathFinderRegistry.cs" />
     <Compile Include="Assets\_Scripts\Camera\MousePositionTracker.cs" />
     <Compile Include="Assets\_Scripts\Units\UnitHealth.cs" />

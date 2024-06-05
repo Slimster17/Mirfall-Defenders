@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b87c2d7de28294d95b3717ba180a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startingBalance: 1000
+  _startingBalance: 1500
   _displayBalance: {fileID: 0}
+  _enemiesToKill: 2
+  _displayEnemiesLeft: {fileID: 0}
+  _victoryCanvas: {fileID: 0}
   onBalanceChanged:
     m_PersistentCalls:
       m_Calls: []

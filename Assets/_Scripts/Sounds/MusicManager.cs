@@ -15,8 +15,8 @@ public class MusicManager : MonoBehaviour
 
     private void PlayBackgroundMusic()
     {
-        Debug.Log("Playing background music");
-        SoundManager.PlayLoopingSound(SoundType.Music, musicAudioSource);
+        // Debug.Log("Playing background music");
+        SoundManager.PlayLoopingSound(SoundType.Music, musicAudioSource, 0.5f);
         StartCoroutine(CheckMusicPlaying());
     }
 

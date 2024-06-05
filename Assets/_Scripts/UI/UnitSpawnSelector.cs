@@ -14,18 +14,34 @@ public class UnitSpawnSelector : MonoBehaviour
 
     private void Awake()
     {
-        _bank = FindObjectOfType<Bank>();
+        // _bank = FindObjectOfType<Bank>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        _bank.onBalanceChanged.AddListener(RecalculateInteractivity);
+        if (_bank == null)
+        {
+            _bank = FindObjectOfType<Bank>();
+            if (_bank != null)
+            {
+                _bank.onBalanceChanged.AddListener(RecalculateInteractivity);
+            }
+            else
+            {
+                Debug.LogWarning("Bank object not found!");
+            }
+        }
     }
 
-    private void OnDisable()
-    {
-        _bank.onBalanceChanged.RemoveListener(RecalculateInteractivity);
-    }
+    // private void OnEnable()
+    // {
+    //     _bank.onBalanceChanged.AddListener(RecalculateInteractivity);
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     _bank.onBalanceChanged.RemoveListener(RecalculateInteractivity);
+    // }
 
 
     public void SetCurrentUnit(SelectableUnits unit)

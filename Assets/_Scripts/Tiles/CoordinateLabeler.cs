@@ -40,13 +40,20 @@ public class CoordinateLabeler : MonoBehaviour
     private void OnEnable()
     {
         _inputReader.toggleEvent += ToggleLabels;
-        _unitSelector.onUnitSelected.AddListener(OnUnitSelected);
+        if (_unitSelector != null)
+        {
+            _unitSelector.onUnitSelected.AddListener(OnUnitSelected);
+        }
     }
 
     private void OnDisable()
     {
         _inputReader.toggleEvent -= ToggleLabels;
-        _unitSelector.onUnitSelected.RemoveListener(OnUnitSelected);
+        if (_unitSelector != null)
+        {
+            _unitSelector.onUnitSelected.RemoveListener(OnUnitSelected);
+        }
+        
     }
 
 

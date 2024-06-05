@@ -61,7 +61,12 @@ public class Unit : MonoBehaviour
         PathFinderRegistry.RegisterPathFinder(PathFinder);
         PathFinder.Unit = this;
     }
-    
+
+    private void OnDestroy()
+    {
+        PathFinderRegistry.UnregisterPathFinder(PathFinder);
+    }
+
     public void RewardGold()
     {
         if (_bank == null)

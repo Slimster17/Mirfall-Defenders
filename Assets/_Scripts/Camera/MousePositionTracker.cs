@@ -30,6 +30,10 @@ public class MousePositionTracker : MonoBehaviour
     
     void OnCameraPosition(Vector2 position)
     {
+        if (_selectedTile == null)
+        {
+            return;
+        }
         Ray ray = Camera.main.ScreenPointToRay(position);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {

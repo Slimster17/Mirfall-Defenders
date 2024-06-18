@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class DropDownButton : MonoBehaviour
 {
 
-    [SerializeField] private RectTransform _panel;
+    [Tooltip("The panel that contains the button")]
+    [SerializeField] private RectTransform _panel; 
 
+    [Tooltip("The button that is used to open the drop down menu")]
     [SerializeField] private RectTransform _dropDownButton;
 
-    private bool isHidden;
+    private bool isHidden; // Flag to determine if the panel is hidden or not
 
     private void Awake()
     {
@@ -19,7 +21,7 @@ public class DropDownButton : MonoBehaviour
     }
 
 
-    public void MovePanel()
+    public void MovePanel() // Move the panel and button to the new anchored positions
     {
         // Calculate panel and button dimensions
         float panelWidth = _panel.rect.width * _panel.transform.localScale.x;

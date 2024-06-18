@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TrebuchetSoundsPlayer : MonoBehaviour
 {
-   public void PlayRotationSound()
+   public void PlayRotationSound() // Play the sound of the trebuchet rotating
    {
       SoundManager.PlaySound(SoundType.TrebuchetRotation);
    }
 
-   public void PlayFireSound()
+   public void PlayFireSound() // Play the sound of the trebuchet firing
    {
       SoundManager.PlaySound(SoundType.TrebuchetFire);
    }

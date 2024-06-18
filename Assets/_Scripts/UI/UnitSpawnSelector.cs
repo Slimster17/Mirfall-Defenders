@@ -7,15 +7,10 @@ using UnityEngine.UI;
 
 public class UnitSpawnSelector : MonoBehaviour
 {
-    private Bank _bank;
-    public SelectableUnits SelectedUnit;
-    public ButtonUnitSpawner[] unitButtons;
-    public int SelectedUnitCost;
-
-    private void Awake()
-    {
-        // _bank = FindObjectOfType<Bank>();
-    }
+    private Bank _bank; // Reference to the bank object.
+    public SelectableUnits SelectedUnit; // The currently selected unit.
+    public ButtonUnitSpawner[] unitButtons; // The buttons for each unit.
+    public int SelectedUnitCost; // The cost of the currently selected unit.
 
     private void Start()
     {
@@ -24,7 +19,8 @@ public class UnitSpawnSelector : MonoBehaviour
             _bank = FindObjectOfType<Bank>();
             if (_bank != null)
             {
-                _bank.onBalanceChanged.AddListener(RecalculateInteractivity);
+                // Recalculate interactivity when the bank balance changes
+                _bank.onBalanceChanged.AddListener(RecalculateInteractivity); 
             }
             else
             {
@@ -32,51 +28,7 @@ public class UnitSpawnSelector : MonoBehaviour
             }
         }
     }
-
-    // private void OnEnable()
-    // {
-    //     _bank.onBalanceChanged.AddListener(RecalculateInteractivity);
-    // }
-    //
-    // private void OnDisable()
-    // {
-    //     _bank.onBalanceChanged.RemoveListener(RecalculateInteractivity);
-    // }
-
-
-    public void SetCurrentUnit(SelectableUnits unit)
-    {
-       
-        SelectedUnit = unit;
-    }
-    
-    public void SetCurrentUnitFromInt(int unitIndex)
-    {
-        
-        // if (!RecalculateButtonInteractivity(unitIndex))
-        // {
-        //     return;
-        // }
-        // Debug.Log(unitButtons[unitIndex-1]);
-        if (System.Enum.IsDefined(typeof(SelectableUnits), unitIndex))
-        {
-            SelectableUnits unit = (SelectableUnits)unitIndex;
-            SetCurrentUnit(unit);
-            StartCoroutine(ButtonCooldown(unitButtons[unitIndex-1]));
-        }
-        else
-        {
-            Debug.LogWarning("Invalid unit index: " + unitIndex);
-        }
-    }
-    
-    public void ResetSelectedUnit()
-    {
-        SelectedUnit = SelectableUnits.None;
-        SelectedUnitCost = 0;
-    }
-    
-    private IEnumerator ButtonCooldown(ButtonUnitSpawner button)
+    private IEnumerator ButtonCooldown(ButtonUnitSpawner button) // Sets the cooldown for the button
     {
         SelectedUnitCost = button.Cost;
         button.Button.interactable = false;
@@ -97,12 +49,6 @@ public class UnitSpawnSelector : MonoBehaviour
         RecalculateInteractivity();
 
     }
-
-    private void Update()
-    {
-        // Debug.Log($"Selected unis is - {SelectedUnit}");
-    }
-
     private bool RecalculateButtonInteractivity(int unitIndex)
     {
         if (_bank.CurrentBalance < unitButtons[unitIndex-1].Cost)
@@ -113,8 +59,30 @@ public class UnitSpawnSelector : MonoBehaviour
         unitButtons[unitIndex-1].Button.interactable = true;
         return true;
     }
-    
-    public void RecalculateInteractivity()
+    public void SetCurrentUnit(SelectableUnits unit) // Sets the currently selected unit
+    {
+        SelectedUnit = unit;
+    }
+    public void SetCurrentUnitFromInt(int unitIndex) // Sets the currently selected unit from the int value
+    {
+        // Debug.Log(unitButtons[unitIndex-1]);
+        if (System.Enum.IsDefined(typeof(SelectableUnits), unitIndex))
+        {
+            SelectableUnits unit = (SelectableUnits)unitIndex;
+            SetCurrentUnit(unit);
+            StartCoroutine(ButtonCooldown(unitButtons[unitIndex-1]));
+        }
+        else
+        {
+            Debug.LogWarning("Invalid unit index: " + unitIndex);
+        }
+    }
+    public void ResetSelectedUnit() // Resets the currently selected unit
+    {
+        SelectedUnit = SelectableUnits.None;
+        SelectedUnitCost = 0;
+    }
+    public void RecalculateInteractivity() // Recalculates the interactivity for all buttons
     {
         foreach (var button in unitButtons)
         {

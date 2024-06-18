@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ProjectLayers
+public enum ProjectLayers // Enum representing different layers in the project
 {
     Default = 0,
     TransparentFX = 1,

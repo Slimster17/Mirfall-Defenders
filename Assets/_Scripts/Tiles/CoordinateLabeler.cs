@@ -9,25 +9,21 @@ using UnityEditor;
 [ExecuteAlways]
 public class CoordinateLabeler : MonoBehaviour
 {
-    [SerializeField] private Color _defaultColor = Color.blue;
-    [SerializeField] private Color _blockedColor = Color.black;
-    [SerializeField] private Color _exploredColor = Color.magenta;
-    [SerializeField] private Color _pathColor = Color.red;
+    [Tooltip("Default color for the label.")][SerializeField] private Color _defaultColor = Color.blue;
+    [Tooltip("Color for blocked tiles.")][SerializeField] private Color _blockedColor = Color.black;
+    [Tooltip("Color for explored tiles.")][SerializeField] private Color _exploredColor = Color.magenta;
+    [Tooltip("Color for path tiles.")][SerializeField] private Color _pathColor = Color.red;
     
     private TextMeshPro _label; // Displays above tile 
-
-    private Vector2Int _coordinates = new Vector2Int();
-    private GridManager _gridManager;
-    // private PathFinder _pathFinder;
-    private Tile _tile;
+    private Vector2Int _coordinates = new Vector2Int(); // Coordinates of the tile
     
-    private InputReader _inputReader;
-
-    private UnitSelector _unitSelector;
+    private GridManager _gridManager; // Reference to the grid manager
+    private Tile _tile; // Reference to the tile
+    private InputReader _inputReader; // Reference to the input reader
+    private UnitSelector _unitSelector; // Reference to the unit selector
+    private UnitMover _selectedCrusaderMover; // Reference to the selected crusader mover
     
-    private UnitMover _selectedCrusaderMover;
-    
-    private void Awake()
+    private void Awake() // Called when the script instance is being loaded
     {
         _inputReader = FindObjectOfType<InputReader>();
         _label = GetComponent<TextMeshPro>();
@@ -37,7 +33,7 @@ public class CoordinateLabeler : MonoBehaviour
         _label.enabled = false;
         _unitSelector = FindObjectOfType<UnitSelector>();
     }
-    private void OnEnable()
+    private void OnEnable() // Called when the object becomes enabled and active
     {
         _inputReader.toggleEvent += ToggleLabels;
         if (_unitSelector != null)
@@ -45,8 +41,7 @@ public class CoordinateLabeler : MonoBehaviour
             _unitSelector.onUnitSelected.AddListener(OnUnitSelected);
         }
     }
-
-    private void OnDisable()
+    private void OnDisable() // Called when the object becomes disabled or inactive
     {
         _inputReader.toggleEvent -= ToggleLabels;
         if (_unitSelector != null)
@@ -55,9 +50,7 @@ public class CoordinateLabeler : MonoBehaviour
         }
         
     }
-
-
-    void Update()
+    void Update() // Called once per frame
     {
         if (!Application.isPlaying)
         {
@@ -66,8 +59,7 @@ public class CoordinateLabeler : MonoBehaviour
             // SetLabelColor(_pathFinder);
             _label.enabled = true;
         }
-
-
+        
         if (_label.IsActive())
         {
             DisplayCoordinates();
@@ -76,10 +68,8 @@ public class CoordinateLabeler : MonoBehaviour
                 // SetColorLabels();
             }
         }
-        
     }
-    
-    private void OnUnitSelected(UnitMover crusaderMover)
+    private void OnUnitSelected(UnitMover crusaderMover) // Called when a unit is selected
     {
         if (_selectedCrusaderMover != null)
         {
@@ -93,7 +83,7 @@ public class CoordinateLabeler : MonoBehaviour
         }
     }
 
-    private void SetColorLabels()
+    private void SetColorLabels() // Sets the color of the labels based on the node status
     {
         if (!_label.IsActive())
         {
@@ -130,6 +120,27 @@ public class CoordinateLabeler : MonoBehaviour
         {
             _label.color = _defaultColor;
         }
+    }
+    private void ToggleLabels() // Toggles the visibility of the labels
+    {
+        _label.enabled = !_label.IsActive();
+    }
+    private void DisplayCoordinates() // Displays the coordinates on the label
+    {
+        if (_gridManager == null)
+        {
+            return;
+        }
+        
+        var parent = transform.parent;
+        _coordinates.x = Mathf.RoundToInt(parent.position.x / _gridManager.UnityGridSize);
+        _coordinates.y = Mathf.RoundToInt(parent.position.z / _gridManager.UnityGridSize);
+
+        _label.text = $"{_coordinates.x}, {_coordinates.y}";
+    }
+    private void UpdateObjectName() // Updates the object name to the current coordinates
+    {
+        transform.parent.name = _label.text;
     }
     
     // private void SetLabelColor()
@@ -172,28 +183,4 @@ public class CoordinateLabeler : MonoBehaviour
     //     }
     //     
     // }
-
-    private void ToggleLabels()
-    {
-        _label.enabled = !_label.IsActive();
-    }
-
-    private void DisplayCoordinates()
-    {
-        if (_gridManager == null)
-        {
-            return;
-        }
-        
-        var parent = transform.parent;
-        _coordinates.x = Mathf.RoundToInt(parent.position.x / _gridManager.UnityGridSize);
-        _coordinates.y = Mathf.RoundToInt(parent.position.z / _gridManager.UnityGridSize);
-
-        _label.text = $"{_coordinates.x}, {_coordinates.y}";
-    }
-    
-    private void UpdateObjectName()
-    {
-        transform.parent.name = _label.text;
-    }
 }

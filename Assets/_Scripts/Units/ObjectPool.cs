@@ -6,18 +6,33 @@ using UnityEngine.Serialization;
 
 public class ObjectPool : MonoBehaviour
 {
+    [Tooltip("Number of objects in the pool.")]
     [SerializeField][Range(0,10)] private int _poolSize = 5;
+    
+    [Tooltip("Enable infinite spawning of objects.")]
     [SerializeField] private bool _infinitySpawn;
+    
+    [Tooltip("Use separated paths for each unit.")]
     [SerializeField] private bool _separatedPaths;
+    
+    [Tooltip("ID for the unit type to spawn.")]
     [SerializeField] private SelectableUnits _unitID;
+    
+    [Tooltip("Prefab of the unit to spawn.")]
     [SerializeField] private GameObject _unitPrefab;
+    
+    [Tooltip("Time interval between spawns.")]
     [SerializeField][Range(0.1f, 20f)] private float _spawnTimer = 1f;
+    
+    [Tooltip("Canvas for the health bar UI.")]
     [SerializeField] private Canvas _healthBarCanvas;
+    
+    [Tooltip("Camera for the health bar UI.")]
     [SerializeField] private Camera _camera;
 
-    private GameObject[] _pool;
+    private GameObject[] _pool; // Array of game objects in the pool
     
-    public SelectableUnits UnitID { get => _unitID; }
+    public SelectableUnits UnitID { get => _unitID; } // Get the unit ID
     
     
     private void Awake()
@@ -34,7 +49,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    private void PopulatePool()
+    private void PopulatePool() // Populate the pool with game objects
     {
         _pool = new GameObject[_poolSize];
 
@@ -42,21 +57,6 @@ public class ObjectPool : MonoBehaviour
         {
             _pool[i] = Instantiate(_unitPrefab, transform);
             _pool[i].GetComponent<UnitHealth>().SetupHealthBar(_healthBarCanvas, _camera);
-            
-            // Unit unitComponent = _pool[i].GetComponent<Unit>();
-            //
-            // if (_separatedPaths)
-            // {
-            //     unitComponent.PathFinder = unitComponent.gameObject.AddComponent<PathFinder>();
-            //  
-            //     gameObject.GetComponent<PathFinder>().enabled = false;
-            //
-            // }
-            // else
-            // {
-            //     unitComponent.PathFinder = GetComponent<PathFinder>();
-            // }
-            // unitComponent.PathFinder.Unit = unitComponent;
             
             // Set enemy game object inactive
             _pool[i].SetActive(false);
@@ -66,7 +66,7 @@ public class ObjectPool : MonoBehaviour
             
         }
     }
-    IEnumerator SpawnUnit()
+    IEnumerator SpawnUnit() // Spawn a unit in the pool
     {
         while (true)
         {
@@ -75,14 +75,13 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public void EnableObjectInPool()
+    public void EnableObjectInPool() // Enable a game object in the pool
     {
         for (int i = 0; i < _pool.Length; i++)
         {
             if (_pool[i].activeInHierarchy == false)
             {
                 _pool[i].SetActive(true);
-                // _pool[i].GetComponent<EnemyHealth>().gameObject.SetActive(true);
                 return;
             }
         }

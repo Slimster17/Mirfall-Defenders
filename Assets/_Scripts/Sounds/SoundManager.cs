@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public enum SoundType
+public enum SoundType // List of sounds to play
 {
     ArrowShot,
     SwordSlash,
@@ -19,17 +19,18 @@ public enum SoundType
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
 {
+    [Tooltip("Array of sound configurations")]
     [SerializeField] private SoundList[] soundList;
-    private static SoundManager instance;
-    private AudioSource audioSource;
+   
+    private static SoundManager instance; // Singleton instance of SoundManager
+    private AudioSource audioSource; // AudioSource component for playing sounds
 
-    private void Awake()
+    private void Awake() // Awake is called when the script instance is being loaded
     {
         instance = this;
         audioSource = GetComponent<AudioSource>();
     }
-
-    public static void PlaySound(SoundType sound, float volume = 1)
+    public static void PlaySound(SoundType sound, float volume = 1) // Method to play a sound effect
     {
         SoundList soundList = instance.soundList[(int)sound];
         AudioClip[] clips = soundList.sounds;
@@ -37,8 +38,8 @@ public class SoundManager : MonoBehaviour
         instance.audioSource.outputAudioMixerGroup = soundList.mixer;
         instance.audioSource.PlayOneShot(randomClip, volume * soundList.volume);
     }
-    
-    public static void PlayLoopingSound(SoundType sound, AudioSource source, float volume = 1)
+    public static void PlayLoopingSound(SoundType sound, AudioSource source, float volume = 1) // Method to play a looping sound effect
+
     {
         SoundList soundList = instance.soundList[(int)sound];
         AudioClip[] clips = soundList.sounds;
@@ -49,13 +50,11 @@ public class SoundManager : MonoBehaviour
         source.loop = false; // Ensure it does not loop automatically
         source.Play();
     }
-    
-    public static void StopSound()
+    public static void StopSound() // Method to stop playing sound
     {
         instance.audioSource.Stop();
     }
-
-    public void Resize()
+    public void Resize() // Method to resize the sound list array
     {
         string[] names = Enum.GetNames(typeof(SoundType));
         bool differentSize = names.Length != soundList.Length;
@@ -94,7 +93,7 @@ public class SoundManager : MonoBehaviour
     {
         private void OnEnable()
         {
-            ((SoundManager)target).Resize();
+            ((SoundManager)target).Resize(); // Resize the sound list array in the editor
         }
     }
 
@@ -104,10 +103,10 @@ public class SoundManager : MonoBehaviour
 [Serializable]
 public struct SoundList
 {
-    [HideInInspector] public string name;
-    [Range(0, 1)] public float volume;
-    public AudioMixerGroup mixer;
-    public AudioClip[] sounds;
+    [HideInInspector] public string name; // Name of the sound type
+    [Range(0, 1)] public float volume; // Volume of the sound
+    public AudioMixerGroup mixer; // Audio mixer group for the sound
+    public AudioClip[] sounds; // Array of audio clips for the sound
 }
 
 

@@ -6,17 +6,26 @@ using UnityEngine.Serialization;
 
 public class UnitAttack : MonoBehaviour
 {
-    private Animator _animator;
+   
+    [Tooltip("Mask to identify target layers.")]
     [SerializeField] private LayerMask _targetMask;
+    
+    [Tooltip("Radius within which the unit will detect and become angry at enemies.")]
     [SerializeField] private float _angerRadius = 5f;
-    [SerializeField] private Transform _enemyTransform;
-    [SerializeField] private UnitHealth _enemyUnitHealth;
-    private Coroutine _attackRoutine;
-    private Unit _unit;
-    private bool _isAttacking;
-    private EnemyTracker _enemyTracker;
+    
 
-    public LayerMask TargetMask
+    private Transform _enemyTransform; // Transform of the enemy unit
+    private UnitHealth _enemyUnitHealth; // Health of the enemy unit
+    private Coroutine _attackRoutine; // Coroutine to manage the attacking of the unit
+    private bool _isAttacking; // Boolean to know if the unit is attacking or not
+    
+    // References
+    private Animator _animator;
+    private EnemyTracker _enemyTracker;
+    private Unit _unit;
+
+    // References
+    public LayerMask TargetMask 
     {
         get { return _targetMask; }
     }
@@ -25,7 +34,6 @@ public class UnitAttack : MonoBehaviour
         get { return _enemyTransform; }
         set { _enemyTransform = value; }
     }
-    
     public bool IsAttacking { get { return _isAttacking; } }
 
     private void Awake()
@@ -34,50 +42,12 @@ public class UnitAttack : MonoBehaviour
         _unit = GetComponent<Unit>();
         _enemyTracker = GetComponent<EnemyTracker>();
     }
-
     private void OnEnable()
     {
         _enemyTransform = null;
         _enemyUnitHealth = null;
     }
-
-    public bool CheckEnemiesNearby()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, _angerRadius, _targetMask);
-        if (colliders.Length > 0)
-        {
-            _enemyTransform = colliders[0].transform;
-            _enemyUnitHealth = _enemyTransform.GetComponent<UnitHealth>();
-            return true;
-        }
-        else
-        {
-            _enemyTransform = null;
-            _enemyUnitHealth = null;
-            return false;
-        }
-    }
-    
-    public void ManageAttackRoutine(bool start)
-    {
-        if (start && _attackRoutine == null)
-        {
-            if (CheckEnemiesNearby())
-            {
-                // Debug.Log($"Starting attack routine");
-                _attackRoutine = StartCoroutine(AttackRoutine());
-            }
-        }
-        else if (!start && _attackRoutine != null)
-        {
-            // Debug.Log($"Stopping attack routine");
-            StopCoroutine(_attackRoutine);
-            _attackRoutine = null;
-        }
-    }
-
-
-    private IEnumerator AttackRoutine()
+    private IEnumerator AttackRoutine() // Attack routine
     {
         while (CheckEnemiesNearby())
         {
@@ -93,8 +63,7 @@ public class UnitAttack : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator Attack(Transform enemyTransform)
+    private IEnumerator Attack(Transform enemyTransform) // Attack the enemy unit
     {
         if (_enemyTransform == null || _enemyUnitHealth == null || _unit.UnitHealth._isDead)
         {
@@ -119,19 +88,37 @@ public class UnitAttack : MonoBehaviour
         
         _isAttacking = false;
     }
-    
-    private Transform GetClosestEnemy()
+    public bool CheckEnemiesNearby() // Returns true if there is an enemy nearby
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _angerRadius, _targetMask);
         if (colliders.Length > 0)
         {
-            return colliders[0].transform;
+            _enemyTransform = colliders[0].transform;
+            _enemyUnitHealth = _enemyTransform.GetComponent<UnitHealth>();
+            return true;
         }
         else
         {
-            return null;
+            _enemyTransform = null;
+            _enemyUnitHealth = null;
+            return false;
         }
     }
-
-    
+    public void ManageAttackRoutine(bool start) // Start or stop the attack routine
+    {
+        if (start && _attackRoutine == null)
+        {
+            if (CheckEnemiesNearby())
+            {
+                // Debug.Log($"Starting attack routine");
+                _attackRoutine = StartCoroutine(AttackRoutine());
+            }
+        }
+        else if (!start && _attackRoutine != null)
+        {
+            // Debug.Log($"Stopping attack routine");
+            StopCoroutine(_attackRoutine);
+            _attackRoutine = null;
+        }
+    }
 }

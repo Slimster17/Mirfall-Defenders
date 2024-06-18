@@ -9,27 +9,35 @@ using UnityEngine.Serialization;
 public class UnitMover : MonoBehaviour
 {
      
+    [Tooltip("Movement speed of the unit.")]
     [SerializeField] [Range(0f,5f)] private float _movementSpeed = 1f;
+    
+    [Tooltip("Rotation speed of the unit.")]
     [SerializeField] [Range(0f,5f)] private float _rotationSpeed = 1f;
+    
+    [Tooltip("Indicates if the unit is following its path.")]
     [SerializeField] private bool _isFollowingPath = true;
+    
+    [Tooltip("List of nodes representing the path.")]
     [SerializeField] private List<Node> _path = new List<Node>();
     
+    private Vector3 _lastPosition; 
+    private bool _isListChanged = false;
+    private bool _isAttacking;
+    
+    // References
     private Animator animator;
     private Unit _unit;
     private GridManager _gridManager;
     private PathFinder _pathFinder;
     private UnitAttack _unitAttack;
-    private Vector3 _lastPosition;
     
-    // private Transform _enemyTransform;
-   
-   
-    private bool _isAttacking;
     
     public Action onPathRecalculated;
+    
+    // Properties
     public List<Node> Path { get { return _path; } }
-    private bool _isListChanged = false;
-
+    
     public bool IsFollowingPath
     {
         get { return _isFollowingPath; }
@@ -50,8 +58,7 @@ public class UnitMover : MonoBehaviour
             }
         }
     }
-
- 
+    
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -61,11 +68,10 @@ public class UnitMover : MonoBehaviour
         _unitAttack = GetComponent<UnitAttack>();
     }
     
-    private void OnEnable()
+    private void OnEnable() // Initializes the unit's path and starts following it
     {
         IsFollowingPath = true;
         _lastPosition = transform.position;
-        // _pathFinder.Unit = _unit;
         ReturnToStart();
         RecalculatePath(true);
     }
@@ -82,7 +88,7 @@ public class UnitMover : MonoBehaviour
     //     }
     // }
 
-    private void Update()
+    private void Update() // Checks for nearby enemies and manages the unit's path following
     {
         if (_isListChanged) /////////////
         {
@@ -103,48 +109,11 @@ public class UnitMover : MonoBehaviour
            _unitAttack.ManageAttackRoutine(false);
         }
     }
-
-    public void RecalculatePath(bool resetPath)
-    {
-        // Debug.Log($"{gameObject.name} recalculating path");
-        if (_gridManager == null)
-        {
-            return;
-        }
-        Vector2Int coordinates = new Vector2Int();
-
-        if (resetPath)
-        {
-            coordinates = _pathFinder.StartCoordinates;
-        }
-        else
-        {
-            coordinates = _gridManager.GetCoordinatesFromPosition(transform.position);
-        }
-        
-        StopAllCoroutines();
-        _path.Clear();
-        _path = _pathFinder.GetNewPath(coordinates);
-        _isListChanged = true;
-        StartCoroutine(FollowPath());
-    }
-
-    private void ReturnToStart()
+    private void ReturnToStart() // Returns the unit to its starting position
     {
         transform.position = _gridManager.GetPositionFromCoordinates(_pathFinder.StartCoordinates);
     }
-
-    public void FinishPath()
-    {
-        if (_unit.UnitMask == ProjectLayers.Enemy && !_unit.UnitHealth._isDead && !_unit.UnitAttack.IsAttacking)
-        {
-            _unit.WithdrawGold();
-            gameObject.SetActive(false);
-        }
-       
-    }
-   
-    IEnumerator FollowPath()
+    IEnumerator FollowPath() // Coroutine to follow the calculated path
     {
         if (_path != null)
         {
@@ -195,16 +164,46 @@ public class UnitMover : MonoBehaviour
 
         FinishPath();
     }
-
     
+    public void RecalculatePath(bool resetPath) // Recalculates the unit's path. If resetPath is true, the unit will start from the initial coordinates
+    {
+        // Debug.Log($"{gameObject.name} recalculating path");
+        if (_gridManager == null)
+        {
+            return;
+        }
+        Vector2Int coordinates = new Vector2Int();
 
-    public void StopFollowingPath()
+        if (resetPath)
+        {
+            coordinates = _pathFinder.StartCoordinates;
+        }
+        else
+        {
+            coordinates = _gridManager.GetCoordinatesFromPosition(transform.position);
+        }
+        StopAllCoroutines();
+        _path.Clear();
+        _path = _pathFinder.GetNewPath(coordinates);
+        _isListChanged = true;
+        StartCoroutine(FollowPath());
+    }
+    public void FinishPath() // Finishes the unit's path. If the unit is an enemy, it will withdraw gold and deactivate
+    {
+        if (_unit.UnitMask == ProjectLayers.Enemy && !_unit.UnitHealth._isDead && !_unit.UnitAttack.IsAttacking)
+        {
+            _unit.WithdrawGold();
+            gameObject.SetActive(false);
+        }
+       
+    }
+
+    public void StopFollowingPath() // Stops the unit from following the path
     {
         // transform.LookAt(_enemyTransform);
     }
-
  
-    public void ResumeFollowingPath()
+    public void ResumeFollowingPath() // Resumes following the path from the current position
     {
         RecalculatePath(false);
     }

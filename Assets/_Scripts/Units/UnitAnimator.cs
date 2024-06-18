@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitAnimator : MonoBehaviour
 {
-    private Animator _animator;
+    private Animator _animator; // Reference to the Animator component
 
     private void Awake()
     {

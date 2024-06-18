@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class TowerEmissionController : MonoBehaviour
 {
+    [Tooltip("Particle system for the projectile particles.")]
     [SerializeField] private ParticleSystem _projectileParticles;
     
-    private TargetLocator _targetLocator;
+    private TargetLocator _targetLocator; // Reference to the target locator component.
 
     private void Awake()
     {
@@ -15,13 +16,8 @@ public class TowerEmissionController : MonoBehaviour
         
     }
 
-    void Start()
-    {
-        // var emissionModule = _projectileParticles.emission;
-        // emissionModule.rateOverTime = _targetLocator.FireRate;
-    }
-
-    public void ShotArrow()
+    // Shoots an arrow by enabling the emission module and playing the particle system
+    public void ShotArrow() 
     {
         var emissionModule = _projectileParticles.emission;
         emissionModule.enabled = true;

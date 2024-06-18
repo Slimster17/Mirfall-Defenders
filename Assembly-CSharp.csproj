@@ -52,10 +52,8 @@
     <Compile Include="Assets\_Scripts\ProgressBar\FollowTarget.cs" />
     <Compile Include="Assets\_Scripts\Sounds\SoundManager.cs" />
     <Compile Include="Assets\_InputSystem\PlayerInputActions.cs" />
-    <Compile Include="Assets\_Scripts\Sounds\NewBehaviourScript.cs" />
     <Compile Include="Assets\_Scripts\Sounds\TowerArcherSoundsPlayer.cs" />
     <Compile Include="Assets\_Scripts\Units\AnimationEventHandler.cs" />
-    <Compile Include="Assets\_Scripts\Camera\FogOfWar.cs" />
     <Compile Include="Assets\_Scripts\Sounds\MusicManager.cs" />
     <Compile Include="Assets\_Scripts\Towers\Trebuchet.cs" />
     <Compile Include="Assets\_Scripts\Units\Unit.cs" />

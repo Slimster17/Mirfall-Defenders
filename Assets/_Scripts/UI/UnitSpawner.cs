@@ -7,19 +7,19 @@ using UnityEngine.EventSystems;
 
 public class UnitSpawner : MonoBehaviour
 {
-   private UnitSpawnSelector unitSpawnSelector;
-    public List<GameObject> unitPrefabs;
-    public List<ObjectPool> _unitPools;
-    public Vector2Int spawnPoint;
-    private SelectedTile selectedTile;
+    private UnitSpawnSelector unitSpawnSelector; // Reference to the UnitSpawnSelector script
+    public List<GameObject> unitPrefabs; // List of the unit prefabs
+    public List<ObjectPool> _unitPools; // List of the unit pools
+    public Vector2Int spawnPoint; // The spawn point of the unit
+    private SelectedTile selectedTile; // Curently selected tile
     
-    private InputReader _inputReader;
-    private GridManager _gridManager;
-    private PathFinder[] _pathFinders;
-    private MousePositionTracker _mousePositionTracker;
-    private Bank _bank;
+    private InputReader _inputReader; // Reference to the InputReader script
+    private GridManager _gridManager; // Reference to the GridManager script
+    private PathFinder[] _pathFinders; // All the path finders
+    private MousePositionTracker _mousePositionTracker; // Reference to the MousePositionTracker script
+    private Bank _bank; // Reference to the Bank script
     
-    public GridManager GridManager => _gridManager;
+    public GridManager GridManager => _gridManager; // Getter for the GridManager script
 
     private void Awake()
     {
@@ -32,59 +32,31 @@ public class UnitSpawner : MonoBehaviour
         _bank = FindObjectOfType<Bank>();
        
     }
-    
-    private void OnEnable()
+    private void OnEnable() // Called when the script is enabled
     {
         _inputReader.clickEvent += OnClickInput;
     }
-
-    private void OnDisable()
+    private void OnDisable() // Called when the script is disabled
     {
         _inputReader.clickEvent -= OnClickInput;
     }
-    
-    private void FindPathFinders()
+    private void FindPathFinders() // Find all the path finders
     {
         _pathFinders = PathFinderRegistry.GetAllPathFindersArray();
     }
-
     // Start is called before the first frame update
     void Start()
     {
         Invoke(nameof(FindPathFinders),1f);
-        // Ensure the list of prefabs matches the enum length minus 1 (for None)
-        // if (unitPrefabs.Count != System.Enum.GetValues(typeof(SelectableUnits)).Length - 1)
-        // {
-        //     Debug.LogError("The number of unit prefabs does not match the number of selectable units.");
-        // }
     }
-
     // Update is called once per frame
     void Update()
     {
-        // if (unitSpawnSelector.SelectedUnit != SelectableUnits.None) // Ensure the SelectedUnit is not None
-        // {
-        //     // Check path blockers before spawning
-        //     if (CheckAllPathFindersBlocks())
-        //     {
-        //         // Instantiate the selected prefab at the spawn point
-        //         Vector3 spawnPosition = new Vector3(spawnPoint.x, 0, spawnPoint.y);
-        //         Instantiate(unitPrefabs[(int)unitSpawnSelector.SelectedUnit - 1], spawnPosition, Quaternion.identity);
-        //         
-        //         // Notify all path finders
-        //         NotifyAllPathFinders();
-        //
-        //         // Reset the selected unit after spawning
-        //         unitSpawnSelector.ResetSelectedUnit();
-        //     }
-        // }
-
-        if (unitSpawnSelector.SelectedUnit == SelectableUnits.None)
+        if (unitSpawnSelector.SelectedUnit == SelectableUnits.None) // If no unit is selected
         {
             return;
         }
-        
-         if (unitSpawnSelector.SelectedUnit == SelectableUnits.Crusader)
+         if (unitSpawnSelector.SelectedUnit == SelectableUnits.Crusader) // If the crusader is selected
         {
             ObjectPool pool = _unitPools.Find(p => p.UnitID == unitSpawnSelector.SelectedUnit);
             if (pool != null)
@@ -99,42 +71,15 @@ public class UnitSpawner : MonoBehaviour
                 Debug.LogError($"No pool found for unit: {unitSpawnSelector.SelectedUnit}");
             }
         }
-         
     }
-    
-    public bool CheckAllPathFindersBlocks(Vector2Int coordinates)
-    {
-        foreach (var pathFinder in _pathFinders)
-        {
-            if (pathFinder.WillBlockPath(coordinates))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void NotifyAllPathFinders()
-    {
-        foreach (var pathFinder in _pathFinders)
-        {
-            pathFinder.NotifyReceivers();
-        }
-    }
-    
-    private void OnClickInput(Vector3 direction, GameObject clickedObject)
+    private void OnClickInput(Vector3 direction, GameObject clickedObject) // Click event handler
     {
         if (selectedTile == null)
         {
             // Debug.LogError("SelectedTile is null");
             return;
         }
-
-        // if (selectedTile.Selected.TileLayerMask == ProjectLayers.Enemy)
-        // {
-        //     return;
-        // }
-
+        
         var selected = selectedTile.Selected;
         if (selected == null)
         {
@@ -162,17 +107,32 @@ public class UnitSpawner : MonoBehaviour
                 }
             }
         }
-
         if (unitSpawnSelector.SelectedUnit == SelectableUnits.Trebuchet)
         {
             // Debug.Log("Trebuchet fire click");{}
-
             Trebuchet trebuchet = FindObjectOfType<Trebuchet>();
             trebuchet.SetTargetPosition(selectedTile.Selected.transform);
             trebuchet.Attack();
         }
-        _bank.Withdraw(unitSpawnSelector.SelectedUnitCost);
+        _bank.Withdraw(unitSpawnSelector.SelectedUnitCost); // Withdraw the cost of the selected unit
         unitSpawnSelector.ResetSelectedUnit();
-        
+    }
+    public bool CheckAllPathFindersBlocks(Vector2Int coordinates) // Check if all path finders are blocking the path
+    {
+        foreach (var pathFinder in _pathFinders)
+        {
+            if (pathFinder.WillBlockPath(coordinates))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void NotifyAllPathFinders() // Notify all path finders that the selected tile has been selected
+    {
+        foreach (var pathFinder in _pathFinders)
+        {
+            pathFinder.NotifyReceivers();
+        }
     }
 }
